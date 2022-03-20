@@ -9,18 +9,17 @@
 #class attributes:
 #		Result
 #		Status 	
-import requests 
-
-class Internet():
+from requests import get
+from abc import ABCMeta 
+class Internet(metaclass=ABCMeta):
     def __init__(self):
-        self.Result = ""
-        self.Status = ""
-        pass
+        self.__Result = ""
+        self.__Status = ""
     
-    def Search():
+    def Search(self):
         
         
-        # GET /unifiedsearch/#!Search key HTTP/2
+        # GET /unifiedsearch/#!Search_key HTTP/2
         # Host: haveibeenpwned.com
         # Cookie: __cf_bm=L.F0IkFDPKxcBK9fHkO_08ZoucV7pSKnVSh17768Gbw-1647687439-0-AYp9iOrFfEnkTOz8JW8zYQ37j7cfQvAx3tQ/XmLvCxs7u4ldDhTSz74ePa2OO6KkgWFhHUUZtEOoUj8iEa/FIZtJCYQ2xN/49hJNg6+Ue4UHGzwMLsofVkT5iPjFYhbtqHaDBRaAb8kqiBtonHG6U2YhkaJWhfcKoarqUAUwLTWn; ai_user=jp2OF|2022-03-19T10:57:19.117Z; ai_session=5VxYu|1647687439289|1647687439289; _ga=GA1.2.515572655.1647687439; _gid=GA1.2.1255740366.1647687439; _gat=1
         # User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0
@@ -35,23 +34,34 @@ class Internet():
         # Sec-Fetch-Mode: cors
         # Sec-Fetch-Site: same-origin
         # Te: trailers
-
-
         pass
     
-    def CheckConnection():
-        pass 
-
-    def Connect():
+    @property
+    def CheckConnection(self):
+        URLs = ['http://google.com']
+        for URL in URLs: 
+            if get(URL):
+                return True
+            
+        return False
+            
+    @property
+    def Connect(target):
+        return get(target)
         pass
     
-    def DetectDataFormat():
+    def DetectDataFormat(self):
         pass
     
-    def PlainTextSearch():
+    def PlainTextSearch(self):
         pass
     
-    def PdfSearch():
+    def PdfSearch(self):
         pass
+    
+    @property 
+    def GetResult(self):
+        return self.__Result
+    
     
     
