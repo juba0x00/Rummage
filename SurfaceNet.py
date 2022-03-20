@@ -4,7 +4,7 @@
 from internet import Internet 
 class SurfaceNet(Internet):
     
-    def __init():
+    def __init(self):
         super().__init__()
         pass
     

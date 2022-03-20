@@ -1,10 +1,9 @@
 # Omar Ameer 
 # class methods: 
-#		StartUI
+# StartUI
 
-#class attributes:
-#		SearchLevel
-#
+# class attributes:
+# SearchLevel
 from ttkthemes import ThemedTk
 class GUI(ThemedTk):
     def __init__(self):
@@ -17,4 +16,3 @@ class GUI(ThemedTk):
             'scidgrey', 'scidmint', 'scidpink', 'scidpurple', 'scidsand', 'smog', 'winxpblue', 'yaru'
             ]
         self.theme = self.Themes[18]
-        
