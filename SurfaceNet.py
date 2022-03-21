@@ -4,6 +4,7 @@
 from internet import Internet 
 import requests
 import urllib
+from bs4 import BeautifulSoup
 class SurfaceNet(Internet):
     
     def __init(self):
@@ -31,8 +32,7 @@ class SurfaceNet(Internet):
             "Te": "trailers"
         }
 
-        SearchKey = "mahmoudhawash90@gmail.com".encode()
-        SearchKey = urllib.parse.quote(SearchKey)
+        SearchKey = urllib.parse.quote("user@gmail.com")
         response = requests.post('https://scatteredsecrets.com/', data={"identifier": SearchKey, "action": "search"}, headers=InputHeaders, allow_redirects=True)
         soup = BeautifulSoup(response.content, "lxml")
         print(soup.find_all('div', {"class": "alert alert-success alert-dismissible fade show"}))
