@@ -13,7 +13,6 @@ from requests import get
 from abc import ABCMeta
 from bs4 import BeautifulSoup
 
-
 class Internet(metaclass=ABCMeta):
     def __init__(self):
         self.__Result = ""

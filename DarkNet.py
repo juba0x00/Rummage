@@ -1,8 +1,12 @@
 # Hawash, Bassel, Azab
 # Darknet class is a child of internet class 
-from internet import Internet
+from internet import Internet 
 from os import system
-from stem.control import Controller 
+import socks
+import socket
+import requests
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
 class DarkNet(Internet):
     def __init__(self):
         super().__init__()
@@ -10,6 +14,19 @@ class DarkNet(Internet):
             system('service tor start || systemctl start tor.service')
         except:
             pass
+
+
+    socks.set_default_proxy(socks.SOCKS5, "localhost", 9050)
+    socket.socket = socks.socksocket
+
+    def GetAddrInfo(*args):
+        return [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (args[0], args[1]))]
+
+    socket.getaddrinfo = GetAddrInfo
+
+    #res = requests.get('http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/')
+
+
         #╭─root@Kubuntu /home/juba 
         #╰─# nmap -sV -p- localhost         
         # Starting Nmap 7.80 ( https://nmap.org ) at 2022-03-20 18:08 EET
@@ -28,5 +45,3 @@ class DarkNet(Internet):
             # # (a new exit node IP)
             # controller.signal(Signal.NEWNYM)
 
-
-        pass
