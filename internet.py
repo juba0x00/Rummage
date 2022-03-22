@@ -14,10 +14,12 @@ from abc import ABCMeta
 from bs4 import BeautifulSoup
 
 class Internet(metaclass=ABCMeta):
-    def __init__(self):
-        self.__Result = ""
-        self.__Status = ""
-        self.__target = ""
+    def __init__(self, InputSearchKey):
+        self.Result = ""
+        self.Status = ""
+        self.SearchKey = InputSearchKey
+        self.RiskLevel = "" 
+        self.LastBreach = "" 
 
     def Search(self):
 
@@ -37,6 +39,17 @@ class Internet(metaclass=ABCMeta):
         # Te: trailers
         pass
 
+
+    def SetRiskLeve(self, NewValue):
+        if self.__RiskLevel < NewValue:
+            self.__RiskLevel = NewValue
+        
+    
+    def SetLastBreach(self, NewValue):
+        if self.__LastBreach < NewValue:
+            self.__LastBreach = NewValue
+    
+    
     @property
     def CheckConnection(self):
         URLs = ['http://google.com', ]

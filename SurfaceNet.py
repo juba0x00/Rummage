@@ -1,14 +1,18 @@
 # Mostafa, Omar Khaled
 # surface net is a child of internet class
 
+from ast import In
 from internet import Internet 
 import requests
 import urllib
 from bs4 import BeautifulSoup
+import urllib.parse
+import json
 class SurfaceNet(Internet):
     
-    def __init(self):
-        super().__init__()
+    def __init__(self, InputSearchKey):
+        super().__init__(InputSearchKey)
+
         pass
     
     
@@ -37,3 +41,20 @@ class SurfaceNet(Internet):
         soup = BeautifulSoup(response.content, "lxml")
         print(soup.find_all('div', {"class": "alert alert-success alert-dismissible fade show"}))
   
+  
+    def BreachChecker(self):
+        self.SearchKey = urllib.parse.quote(self.SearchKey)
+        print(self.SearchKey)
+        res = requests.get(f'http://breachchecker.com/set-account/{self.SearchKey}/', allow_redirects=True)
+        soup = BeautifulSoup(res.content, "lxml")
+        _, self.__BreachedRecord, self.__LastBreach = soup.find_all('div', {'class': 'font-big'})
+        self.__BreachedRecord, self.__LastBreach = self.__BreachedRecord.text, self.__LastBreach.text
+        self.__RiskLevel = str(str(soup.find_all('div', {"class": "progress"})).split('width:')[1])[:3]
+        print(f'breach rec = {self.__BreachedRecord} \n last breach = {self.__LastBreach} \n risk = {self.__RiskLevel}')    
+        
+        
+    def EmailRep(self):
+        JsonData = json.loads(requests.get(f'https://emailrep.io/{self.SearchKey}').content)
+        print(JsonData)
+
+        
