@@ -10,68 +10,76 @@
 # Result
 # Status
 from requests import get
-from abc import ABCMeta
+from abc import ABCMeta, abstractclassmethod
 from bs4 import BeautifulSoup
-
+from datetime import date
 class Internet(metaclass=ABCMeta):
+    
+    @abstractclassmethod
     def __init__(self, InputSearchKey):
-        self.Result = ""
-        self.Status = ""
-        self.SearchKey = InputSearchKey
-        self.RiskLevel = "" 
-        self.LastBreach = "" 
+        self.__Result: str
+        self.__Status: str
+        self.__RiskLevel: str 
+        self.__Source: str
+        self.__LastBreach: date
+        self.__SearchKey = InputSearchKey
+        
 
-    def Search(self):
-
-        # GET /unifiedsearch/#!Search_key HTTP/2
-        # Host: haveibeenpwned.com
-        # User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0
-        # Accept: */*
-        # Accept-Language: en-US,en;q=0.5
-        # Accept-Encoding: gzip, deflate
-        # Referer: https://haveibeenpwned.com/
-        # X-Requested-With: XMLHttpRequest
-        # Request-Id: |xJMBl./ogp
-        # Request-Context: appId=cid-v1:bcc569a3-d364-4306-8bbe-83e9fe4d020e
-        # Sec-Fetch-Dest: empty
-        # Sec-Fetch-Mode: cors
-        # Sec-Fetch-Site: same-origin
-        # Te: trailers
-        pass
-
-
-    def SetRiskLeve(self, NewValue):
+    def SetRiskLevel(self, NewValue):
         if self.__RiskLevel < NewValue:
             self.__RiskLevel = NewValue
         
+    @property
+    def GetRiskLevel(self):
+        return self.__RiskLevel
     
     def SetLastBreach(self, NewValue):
-        if self.__LastBreach < NewValue:
-            self.__LastBreach = NewValue
+        if self._LastBreach < NewValue:
+            self._LastBreach = NewValue
     
+    @property
+    def GetLastBreach(self):
+        return self.__LastBreach
+    
+    def AddSource(self, NewSource):
+        if not NewSource in self.__Source:
+            self.__Source += NewSource + '\n' 
+            
+    @property
+    def GetSource(self):
+        return self.__Source
+        
+    def AddResult(self, NewResult):
+        if not NewResult in self.__Result:
+            self.__Result += NewResult + '\n'
+        
+        
+    @property 
+    def GetResult(self):
+        return self.__Result
+    
+    
+    def AddStatus(self, NewStatus):
+        self.__Status += NewStatus + '\n'
+    
+    @property 
+    def GetStatus(self):
+        return self.__Status
+    
+    def SetSearchKey(self, NewKey):
+        self.__SearchKey = NewKey
+        
+    @property
+    def GetSearchKey(self):
+        return self.__SearchKey       
+
     
     @property
     def CheckConnection(self):
-        URLs = ['http://google.com', ]
+        URLs = ['http://google.com', 'http://youtube.com']
         for URL in URLs:
             if get(URL):
                 return True
-
+        
         return False
-
-    @property
-    def GetSoup(self):
-        return BeautifulSoup(get(self.__target).content, "lxml")
-
-    def DetectDataFormat(self):
-        pass
-
-    def PlainTextSearch(self):
-        pass
-
-    def PdfSearch(self):
-        pass
-
-    @property
-    def GetResult(self):
-        return self.__Result
+            
