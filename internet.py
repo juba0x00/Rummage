@@ -15,40 +15,50 @@ from bs4 import BeautifulSoup
 
 class Internet(metaclass=ABCMeta):
     def __init__(self, InputSearchKey):
-        self.Result = ""
-        self.Status = ""
-        self.SearchKey = InputSearchKey
-        self.RiskLevel = "" 
-        self.LastBreach = "" 
+        self.__Result = ""
+        self.__Status = ""
+        self.__SearchKey = InputSearchKey
+        self.__RiskLevel = "" 
+        self.__LastBreach = ""
+        self.__Source = ""
 
     def Search(self):
-
-        # GET /unifiedsearch/#!Search_key HTTP/2
-        # Host: haveibeenpwned.com
-        # User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0
-        # Accept: */*
-        # Accept-Language: en-US,en;q=0.5
-        # Accept-Encoding: gzip, deflate
-        # Referer: https://haveibeenpwned.com/
-        # X-Requested-With: XMLHttpRequest
-        # Request-Id: |xJMBl./ogp
-        # Request-Context: appId=cid-v1:bcc569a3-d364-4306-8bbe-83e9fe4d020e
-        # Sec-Fetch-Dest: empty
-        # Sec-Fetch-Mode: cors
-        # Sec-Fetch-Site: same-origin
-        # Te: trailers
         pass
 
-
-    def SetRiskLeve(self, NewValue):
+    def SetRiskLevel(self, NewValue):
         if self.__RiskLevel < NewValue:
             self.__RiskLevel = NewValue
         
+    @property
+    def GetRiskLevel(self):
+        return self.__RiskLevel
+    
     
     def SetLastBreach(self, NewValue):
-        if self.__LastBreach < NewValue:
-            self.__LastBreach = NewValue
+        if self._LastBreach < NewValue:
+            self._LastBreach = NewValue
     
+    def AddSource(self, NewSource):
+        if not NewSource in self.__Source:
+            self.__Source += NewSource + '\n' 
+        
+    def AddResult(self, NewResult):
+        if not NewResult in self.__Result:
+            self.__Result += NewResult + '\n'
+        
+    def AddStatus(self, NewStatus):
+        self.__Status += NewStatus + '\n'
+    
+    @property
+    def GetSearchKey(self):
+        return self.__SearchKey
+    
+    def SetLastBreach(self, NewBreach):
+        self.__LastBreach = NewBreach
+        
+    @property
+    def GetLastBreach(self):
+        return self.LastBreach
     
     @property
     def CheckConnection(self):
@@ -56,22 +66,4 @@ class Internet(metaclass=ABCMeta):
         for URL in URLs:
             if get(URL):
                 return True
-
         return False
-
-    @property
-    def GetSoup(self):
-        return BeautifulSoup(get(self.__target).content, "lxml")
-
-    def DetectDataFormat(self):
-        pass
-
-    def PlainTextSearch(self):
-        pass
-
-    def PdfSearch(self):
-        pass
-
-    @property
-    def GetResult(self):
-        return self.__Result

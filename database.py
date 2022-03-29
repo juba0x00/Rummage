@@ -1,12 +1,9 @@
-# Osama 
+# Omar Khaled 
 import pandas as pd
 class Databae():
-    def Check_cridt_card(self,Search_key):
+    def Check_cridt_card(self, SearchKey):
         df = pd.read_excel('PayLeaks.xlsx')
-        if(len(Search_key) == 11):
-            return df.loc[df['PayLeaks'] == Search_key]
+        if(len(SearchKey) == 11):
+            return True if SearchKey in str(df.loc[df['PayLeaks'] == SearchKey]) else False
         else:
             return "invalid input"
-
-OPJ=Databae()
-print(OPJ.Check_cridt_card("40604-30720"))
