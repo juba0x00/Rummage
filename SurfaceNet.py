@@ -85,8 +85,6 @@ class SurfaceNet(Internet):
     
     @staticmethod
     def __ReturnPasswd(data):
-        print('__________________________________________')
-        print(data)
         passwds = []
         for breach in data:
             if breach["has_password"]:

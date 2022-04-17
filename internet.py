@@ -22,8 +22,6 @@ class Internet(metaclass=ABCMeta):
         self.__LastBreach = ""
         self.__Source = ""
 
-    def Search(self):
-        pass
 
     def SetRiskLevel(self, NewValue):
         if self.__RiskLevel < NewValue:
@@ -43,8 +41,13 @@ class Internet(metaclass=ABCMeta):
             self.__Source += NewSource + '\n' 
         
     def AddResult(self, NewResult):
-        if not NewResult in self.__Result:
+        if NewResult not in self.__Result:
             self.__Result += NewResult + '\n'
+            
+    
+    @property    
+    def GetResult(self):
+        return self.__Result
         
     def AddStatus(self, NewStatus):
         self.__Status += NewStatus + '\n'
@@ -58,7 +61,7 @@ class Internet(metaclass=ABCMeta):
         
     @property
     def GetLastBreach(self):
-        return self.LastBreach
+        return self.__LastBreach
     
     @property
     def CheckConnection(self):
@@ -67,3 +70,8 @@ class Internet(metaclass=ABCMeta):
             if get(URL):
                 return True
         return False
+    
+    @property 
+    def GetCountry():
+        return get('https://am.i.mullvad.net/country').text.replace('\n', '')
+        
