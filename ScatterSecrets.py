@@ -1,4 +1,4 @@
-import SurfaceNet
+from internet import get, BeautifulSoup
 """
 Scatter Attributes: 
     self.
@@ -11,8 +11,8 @@ Scatter Attributes:
 class ScatterSecrets():
     
     def __GetScatterContent(self):
-        res = SurfaceNet.internet.get('https://scatteredsecrets.com/')
-        self.__ScatterSoup = SurfaceNet.internet.BeautifulSoup(res.content, 'html.parser')
+        res = get('https://scatteredsecrets.com/')
+        self.__ScatterSoup = BeautifulSoup(res.content, 'html.parser')
         self.__ScatterResHead = res.headers
         
     def __GetScatterCookie(self):
