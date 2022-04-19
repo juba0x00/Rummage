@@ -8,3 +8,5 @@ colored
 prettytable
 ttkthemes
 selenium
+pandas 
+openpyxl

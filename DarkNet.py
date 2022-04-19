@@ -1,11 +1,12 @@
 # Hawash, Bassel, Azab
 # Darknet class is a child of internet class 
 
-from internet import Internet 
+
+# ! Search Type (Email or Username) don't support phone number or visa card 
+from matplotlib.pyplot import get
+from internet import Internet, session, get, post, BeautifulSoup
 import socks
 import socket
-import requests
-from bs4 import BeautifulSoup
 from os import system
 from sys import platform
 from time import sleep
@@ -21,29 +22,24 @@ self.
     __EVENTVALIDATION
     __VIEWSTATE
     __VIEWSTATEGENERATOR
-
-
 """
+
+# ? class name(file_name.class_name)
 class DarkNet(Internet):
-    def __init__(self):
-        super().__init__('ewida777@gmail.com') 
-        self.session = requests.session()
+    def __init__(self): 
+        self.session = session() # ? internet.requests.session()
         self.session.proxies["http"] = "socks5h://localhost:9050"
         self.session.proxies["https"] = "socks5h://localhost:9050"
     #   socks.set_default_proxy(proxy_type, addr, port)
         socks.set_default_proxy(socks.SOCKS5, "localhost", 9050)
         socket.socket = socks.socksocket
         self.__CheckTorConnection()
-
-
-
-    def StartSearch(self):
-        self.__GetContent()
+        self.__GetContent()        
         self.__Get_EVENTVALIDATION()
         self.__Get_VIEWSTATE()
         self.__Get_VIEWSTATEGENERATOR()
         self.__GetCookies()
-        self.__Scrape()
+
         
     # It is necessary for DNS resolution of Onion websites
     def GetAddrInfo(*args):
@@ -60,7 +56,7 @@ class DarkNet(Internet):
             ]
         for URL in URLs:
             try:
-                requests.get(URL)
+                get(URL) # ? internet.requests.get()
                 break
             except:
                 #! Show Error window "Tor is not running"
@@ -83,10 +79,9 @@ class DarkNet(Internet):
     
     
     def __GetContent(self):
-        data = requests.get('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass')        
-        self.__ResponseHeaders = data.headers
-        self.__soup = BeautifulSoup(data.content, 'lxml')
-
+        res = get('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass')  # ? internet.requests.get()      
+        self.__ResponseHeaders = res.headers
+        self.__soup = BeautifulSoup(res.content, 'lxml') 
 
     def __GetCookies(self):
         SetCookie = self.__ResponseHeaders['Set-Cookie']
@@ -100,23 +95,25 @@ class DarkNet(Internet):
 
 
     def __Get_EVENTVALIDATION(self):
-        tag = self.__soup.find_all('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'})[0]
-        self.__EVENTVALIDATION = tag.get_attribute_list('value')[0]
+        # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'})
+        # self.__EVENTVALIDATION = tag.attrs['value']
+        self.__EVENTVALIDATION = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'}).attrs['value']
         
         
     def __Get_VIEWSTATE(self):
-        tag = self.__soup.find_all('input', {'type': 'hidden', 'id': '__VIEWSTATE'})[0]
-        self.__VIEWSTATE = tag.get_attribute_list('value')[0]
+        # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATE'})
+        # self.__VIEWSTATE = tag.attrs['value']
+        self.__VIEWSTATE = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATE'}).attrs['value']
         
         
     def __Get_VIEWSTATEGENERATOR(self):
-        tag = self.__soup.find_all('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'})[0]
-        self.__VIEWSTATEGENERATOR = tag.get_attribute_list('value')[0]
+        # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'})
+        # self.__VIEWSTATEGENERATOR = tag.attrs['value']
+        self.__VIEWSTATEGENERATOR = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'}).attrs['value']
         
         
-    def __Scrape(self):
+    def scrape(self):
         LeaksHeaders = {
-            
             'Host': 'leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -141,12 +138,16 @@ class DarkNet(Internet):
                     '__VIEWSTATEGENERATOR':	self.__VIEWSTATEGENERATOR,
                     '__EVENTVALIDATION':	self.__EVENTVALIDATION,
                     'ctl00$ContentPlaceHolder1$TxtSearch':	self.GetSearchKey,
-                    'ctl00$ContentPlaceHolder1$SearchType':	"Email"
+                    'ctl00$ContentPlaceHolder1$SearchType':	self.__SearchType
                     }
 
-        res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) 
-        soup = BeautifulSoup(res.content, 'html.parser')
-        self.__LeaksResult = soup.find_all('div', {'class': 'ResultPanel'})[0]
+        # ? 1 res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) 
+        # ? 2 soup = BeautifulSoup(res.content, 'html.parser')
+        # ? 3 self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})
+        # ? 1+2 soup = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser')
+        
+        # ? 1+2+3 
+        self.__LeaksResult = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser').find('div', {'class': 'ResultPanel'})
         if self.__LeaksResult:
             self.__HandleLeaks()
         else:
@@ -158,4 +159,6 @@ class DarkNet(Internet):
             self.AddResult(span.contents[0])
         
         
-finder = DarkNet()
+finder = DarkNet(SearchKey="ewida777@gmail.com", SearchType='Email')
+finder.scrape()
+print(finder.GetResult)

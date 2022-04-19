@@ -1,14 +1,31 @@
 # Omar Khaled 
-import pandas as pd
+import sqlite3
 class Database:
 
 
-    def __init__(self):
-        pass
+# table -> PayLeaks_Sheet1
+# PayLeaks 
 
-    def CheckCreditCard(self, SearchKey):
-        df = pd.read_excel('PayLeaks.xlsx')
-        if len(SearchKey) == 11:
-            return True if SearchKey in str(df.loc[df['PayLeaks'] == SearchKey]) else False
-        else:
-            return "invalid input"
+
+# table -> Egypt 
+# Username 
+
+
+    def __init__(self, DatabaseName):
+        self.DB_Connection = sqlite3.connect(DatabaseName)
+        
+        
+    def search(self, SearchKey):
+        cursor = self.DB_Connection.cursor()
+        table = cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
+        print(type(table))
+        # query = f"SELECT {col} FROM {table} WHERE {col} = {SearchKey}"
+        # cursor.execute(query)
+        # result = cursor.fetchall()
+        
+
+
+
+
+db = Database('PayLeaks.sqlite', )
+db.search('41003-91030')
