@@ -1,31 +1,27 @@
 # Omar Khaled 
-import sqlite3
-class Database:
-
-
-# table -> PayLeaks_Sheet1
-# PayLeaks 
-
-
-# table -> Egypt 
-# Username 
-
-
-    def __init__(self, DatabaseName):
-        self.DB_Connection = sqlite3.connect(DatabaseName)
+import sqlite3 as sql 
+class Database:        
         
-        
-    def search(self, SearchKey):
-        cursor = self.DB_Connection.cursor()
-        table = cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
-        print(type(table))
-        # query = f"SELECT {col} FROM {table} WHERE {col} = {SearchKey}"
-        # cursor.execute(query)
-        # result = cursor.fetchall()
-        
+    def search(self, DatabaseName, SearchKey):
+        conn = sql.connect(DatabaseName)
+        cursor = conn.cursor()
+        table = cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()[0][0]
+        cursor.execute(f'select * from {table}')
+        column = cursor.description[0][0]
+
+        query = f"SELECT {column} from {table} WHERE {column}='{SearchKey}'"
+        cursor.execute(query)
+        try:
+            result = cursor.fetchall()[0][0]
+        except:
+            return False
+        conn.close()
+        if SearchKey in str(result):
+            return True 
+        else:
+            return False
 
 
 
-
-db = Database('PayLeaks.sqlite', )
-db.search('41003-91030')
+db = Database()
+print(db.search('PayLeaks.sqlite', '41004-70360'))

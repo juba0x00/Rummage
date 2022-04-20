@@ -1,2 +1,0 @@
-yLeaks'
-        cursor.execute(query)

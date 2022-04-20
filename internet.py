@@ -93,4 +93,4 @@ class Internet(metaclass=ABCMeta):
         return get('https://am.i.mullvad.net/country').text.replace('\n', '')
         
         
-finder = Internet('ewida@mgila.com', 'tshlk')
+finder = Internet('ewida@gmail.com', 'tshlk')
