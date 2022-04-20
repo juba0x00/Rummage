@@ -47,23 +47,28 @@ class BreachDir(Internet):
         file.close()
 
 
-    def BreachDirectory(self):
+    def Search(self):
         self.AddStatus("[+] Searching in Breachdirectory.org")
         querystring = {"func": "auto", "term": f"{self.GetSearchKey}"}
         self.__AutoJsResponse = loads(get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring).text) # ? internet.json.loads
         self.__UpdateKeyCounters()
-        # print(self.__AutoJsResponse)
+        print(self.GetStatus)
+        print(self.__AutoJsResponse)
+        print(self.__AutoJsResponse["success"])
+        print(type(self.__AutoJsResponse["success"]))
+        
         if 'message' in self.__AutoJsResponse:
             self.__GetValidKey
-            self.BreachDirectory()
+            self.Search()
         else:
-            if not self.__AutoJsResponse["success"]:
-                self.AddResult("No Breaches found in BreachDirectory")
-            
-            else:
+            if self.__AutoJsResponse["success"]:
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
                 self.AddResult(f"++ Passwords Found ++\n : \t\t{self.__GetPasswords}")
                 self.AddResult("Source: {}".format(self.__GetSources))
+            
+            else:
+                self.AddResult("No Breaches found in BreachDirectory")
+
             # print(self.GetResult)
         
         
@@ -81,4 +86,7 @@ class BreachDir(Internet):
             if breach["has_password"]:
                 passwds.append(breach["password"])
         return passwds 
-    
+parent = Internet('mitnick@gmail.com', 'Email')
+finder = BreachDir()
+finder.Search()
+print(finder.GetResult)

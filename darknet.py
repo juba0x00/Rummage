@@ -1,6 +1,9 @@
 # Hawash, Bassel, Azab
 # Darknet class is a child of internet class 
-
+R = '\033[31m' # red
+G = '\033[32m' # green
+C = '\033[36m' # cyan
+W = '\033[0m' # white
 
 # ! Search Type (Email or Username) don't support phone number or visa card 
 from matplotlib.pyplot import get
@@ -49,14 +52,13 @@ class DarkNet(Internet):
 
     def __CheckTorConnection(self):
         URLs = [
-            'http://freedomzw5x5tzeit4jgc3gvic3bmecje53hwcoc3nnwe2c3gsukdfid.onion/databases',
             'http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', 
             'http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/', 
+            'http://freedomzw5x5tzeit4jgc3gvic3bmecje53hwcoc3nnwe2c3gsukdfid.onion/databases',
             'http://3bbad7fauom4d6sgppalyqddsqbf5u5p56b5k5uk2zxsy3d6ey2jobad.onion/'
             ]
         for URL in URLs:
             try:
-                get(URL) # ? internet.requests.get()
                 break
             except:
                 #! Show Error window "Tor is not running"
@@ -112,7 +114,7 @@ class DarkNet(Internet):
         self.__VIEWSTATEGENERATOR = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'}).attrs['value']
         
         
-    def scrape(self):
+    def Scrape(self):
         LeaksHeaders = {
             'Host': 'leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -138,7 +140,7 @@ class DarkNet(Internet):
                     '__VIEWSTATEGENERATOR':	self.__VIEWSTATEGENERATOR,
                     '__EVENTVALIDATION':	self.__EVENTVALIDATION,
                     'ctl00$ContentPlaceHolder1$TxtSearch':	self.GetSearchKey,
-                    'ctl00$ContentPlaceHolder1$SearchType':	self.__SearchType
+                    'ctl00$ContentPlaceHolder1$SearchType':	self.GetSearchType
                     }
 
         # ? 1 res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) 
@@ -159,6 +161,3 @@ class DarkNet(Internet):
             self.AddResult(span.contents[0])
         
         
-finder = DarkNet(SearchKey="ewida777@gmail.com", SearchType='Email')
-finder.scrape()
-print(finder.GetResult)

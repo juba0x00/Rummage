@@ -9,19 +9,19 @@ class Database:
         cursor.execute(f'select * from {table}')
         column = cursor.description[0][0]
 
-        query = f"SELECT {column} from {table} WHERE {column}='{SearchKey}'"
+        query = f"SELECT {column} FROM {table} WHERE {column}='{SearchKey}'"
         cursor.execute(query)
+        conn.close()
+        
+        
         try:
             result = cursor.fetchall()[0][0]
+            if SearchKey in str(result):
+                return True
+            
         except:
             return False
-        conn.close()
-        if SearchKey in str(result):
-            return True 
-        else:
-            return False
 
 
 
-db = Database()
-print(db.search('PayLeaks.sqlite', '41004-70360'))
+

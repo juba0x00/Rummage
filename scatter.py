@@ -1,4 +1,5 @@
-from internet import get, BeautifulSoup
+from matplotlib.pyplot import scatter
+from internet import Internet, get, BeautifulSoup
 """
 Scatter Attributes: 
     self.
@@ -27,21 +28,30 @@ Scatter Attributes:
     # Connection: close
     # identifier=ewida777%40gmail.com&csrf_token=ImRmN2YwZTkxOGE2YWMyNzZhMGY2NDhmYTNiM2I4YWRkOGYyNmM2YTMi.Yl1baA.tNc00AHdlU_ZMcdtLbVDWOd76RQ&action=search"""
 
-class ScatterSecrets():
+class ScatterSecrets(Internet):
     
-    def __GetScatterContent(self):
+    def __init__(self):
+        self.__GetContent()
+        self.__GetCookie()
+        self.__GetCSRF()
+        # self.__GetCSRF()
+    
+    def __GetContent(self):
         res = get('https://scatteredsecrets.com/')
         self.__ScatterSoup = BeautifulSoup(res.content, 'html.parser')
         self.__ScatterResHead = res.headers
+        # print(self.__ScatterSoup)
         
-    def __GetScatterCookie(self):
+    def __GetCookie(self):
         self.__ScatterSession = self.__ScatterResHead['set-cookie'].split(';')[0].split('=')[1]
-
-    def __GetScatterCSRF(self):
-        tag = self.__ScatterSoup.find('input', {'type': 'hidden', 'name': 'csrf_token'})
-        self.__ScatterCSRF = tag.attrs['value']
         
-    
+        
+    def __GetCSRF(self):
+        # tag = self.__ScatterSoup.find('input', {'type': 'hidden', 'name': 'csrf_token'})
+        # self.__ScatterCSRF = tag.attrs['value']
+        self.__ScatterCSRF = self.__ScatterSoup.find('input', {'type': 'hidden', 'name': 'csrf_token'}).attrs['value']
+        
+        
     def ScatterSecrets(self):
         
         InputHeaders = {
@@ -60,3 +70,4 @@ class ScatterSecrets():
             "Sec-Fetch-User": "?1",
             "Te": "trailers"
         }
+        

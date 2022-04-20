@@ -9,26 +9,25 @@
 # class attributes:
 # Result
 # Status
-from requests import get, session
+from requests import get, session, post
 from abc import ABCMeta
 from bs4 import BeautifulSoup
 from json import loads, dump
 
+
 class Internet(metaclass=ABCMeta):
+    __SearchKey = ""
+    __SearchType = ""
+    __Status = ""
+    __Result = ""
+    __Source = ""
     
     def __init__(self, InputSearchKey, InputSearchType):
-        Internet.__SetSearchKey(InputSearchKey)
+        Internet.__SearchKey = InputSearchKey
         Internet.__SearchType = InputSearchType
-        self.__Result = ""
-        self.__Status = ""
         self.__RiskLevel = "" 
         self.__LastBreach = ""
-        self.__Source = ""
 
-    @staticmethod
-    def __SetSearchKey(SearchKey):
-        Internet.__SearchKey = SearchKey
-        
     
 
     def SetRiskLevel(self, NewValue):
@@ -56,17 +55,20 @@ class Internet(metaclass=ABCMeta):
     def GetSources(self):
         return self.__Source
     
-    def AddResult(self, NewResult):
-        if NewResult not in self.__Result:
-            self.__Result += NewResult + '\n'
+    @staticmethod
+    def AddResult(NewResult):
+        if NewResult not in Internet.__Result:
+            Internet.__Result += NewResult + '\n'
     
     
     @property    
     def GetResult(self):
         return self.__Result
         
-    def AddStatus(self, NewStatus):
-        self.__Status += NewStatus + '\n'
+        
+    @staticmethod
+    def AddStatus(NewStatus):
+        Internet.__Status += NewStatus + '\n'
     
     @property 
     def GetStatus(self):
@@ -93,4 +95,3 @@ class Internet(metaclass=ABCMeta):
         return get('https://am.i.mullvad.net/country').text.replace('\n', '')
         
         
-finder = Internet('ewida@gmail.com', 'tshlk')
