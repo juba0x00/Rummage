@@ -1,12 +1,4 @@
 #run -> pip3 install -r requirements.txt
-stem
 requests
-pysocks
-fake_useragent
 bs4
-colored
-prettytable
-ttkthemes
-selenium
-pandas 
-openpyxl
+json 

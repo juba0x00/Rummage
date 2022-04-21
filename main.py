@@ -28,9 +28,7 @@ print(BreachDirFinder.GetResult)
 print('_____________________________________________')
 print(BreachDirFinder.GetResult)
 
-# TODO add status 
-# TODO add result 
-# TODO 
-# TODO 
-# TODO 
-# TODO 
+# TODO connect classes 
+# TODO database payleaks 
+# TODO GUI 
+# TODO increase level 
