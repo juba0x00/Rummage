@@ -1,12 +1,12 @@
-from leaksfinder import LeaksFinder
-from internet import Internet 
-from darknet import DarkNet
-from scatter import ScatterSecrets
-from database import Database
+from modules.leaksfinder import LeaksFinder
+from modules.internet import Internet 
+from modules.darknet import DarkNet
+from modules.scatter import ScatterSecrets
+from modules.database import Database
 # from breachchecker import BreachChecker
-from breachdir import BreachDir
-from gui import GUI
-from validateinput import CheckinputType
+from modules.breachdir import BreachDir
+from modules.gui import GUI
+from modules.validateinput import CheckinputType
 
 # countries: Egypt, Cameroon, Algeria   
 # window = GUI()

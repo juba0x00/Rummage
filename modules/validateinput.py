@@ -1,5 +1,6 @@
-from internet import Get
+from internet import Internet
 
+country = Internet.GetCountry()
 def CheckinputType(data):
     if IsEmail(data) :
         return "Email"
@@ -19,19 +20,24 @@ def IsVisa(Visa):
         return True
     
 countries = {
-    "Egypt": [2, 11, 13]
+    "Egypt": [2, 11, 13],
+    "Cameroon":[],
+    "Austria":[43,9,15],
+    "Canada":[ 1, 9, 12],
+    "Bahrain":[973,3,8],
+    "Belgium":[ 32,  ],
+    "China":[ 86, 10, 13],
 }
 
 
 
 def IsPhoneNumber(Number):
-
-    if "Egypt" == "Egypt":
-        if Number[0] == '+' :
-            l = list(Number)
-            l.remove('+')
-            Number = ''.join(l)
-        return HandilingPhoneformat(str(countries['Egypt'][0]), countries['Egypt'][1], countries['Egypt'][2],Number)
+    
+    if Number[0] == '+' :
+        l = list(Number)
+        l.remove('+')
+        Number = ''.join(l)
+    return HandilingPhoneformat(str(countries[country][0]), countries[country][1], countries[country][2],Number)
 
     
 def HandilingPhoneformat(code , StartRange, EndRange,Number):

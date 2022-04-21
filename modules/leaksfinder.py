@@ -68,3 +68,17 @@ class LeaksFinder():
     @property 
     def GetSearchType(self):
         return self.__SearchType
+
+    @property
+    def CheckConnection(self):
+        URLs = ['http://google.com', ]
+        for URL in URLs:
+            if get(URL):
+                return True
+        return False
+    
+    
+    def GetCountry():
+        return get('https://am.i.mullvad.net/country').text.replace('\n', '')
+        
+
