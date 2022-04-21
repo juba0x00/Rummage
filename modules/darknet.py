@@ -43,7 +43,10 @@ class DarkNet(Internet):
         self.__Get_VIEWSTATEGENERATOR()
         self.__GetCookies()
 
-        
+    @property
+    def __DarkInputValidate(self):
+        return self.GetSearchType == 'Email' or self.GetSearchType == 'Username'
+    
     # It is necessary for DNS resolution of Onion websites
     def GetAddrInfo(*args):
         return [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (args[0], args[1]))]
@@ -114,7 +117,9 @@ class DarkNet(Internet):
         self.__VIEWSTATEGENERATOR = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'}).attrs['value']
         
         
-    def Scrape(self):
+    def Search(self):
+        if not self.__DarkInputValidate:
+            self.AddResult('Search Input not supported in Dark web search')
         LeaksHeaders = {
             'Host': 'leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -159,5 +164,4 @@ class DarkNet(Internet):
     def __HandleLeaks(self):  
         for span in self.__LeaksResult.find_all('span', {'style':'display:inline-block;color:White;background-color:DarkRed;border-width:2px;border-style:Solid;'}):
             self.AddResult(span.contents[0])
-        
         

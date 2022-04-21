@@ -5,7 +5,8 @@ from internet import Internet, get, loads, dump
 #         __JsonKeys 
 #         __BreachDirHeaders
 #         __AutoResponse
-        
+
+
 class BreachDir(Internet):
 
     def __init__(self):
@@ -47,15 +48,14 @@ class BreachDir(Internet):
         file.close()
 
 
+
     def Search(self):
         self.AddStatus("[+] Searching in Breachdirectory.org")
         querystring = {"func": "auto", "term": f"{self.GetSearchKey}"}
-        self.__AutoJsResponse = loads(get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring).text) # ? internet.json.loads
+        res = get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring)
+        self.__AutoJsResponse = loads(res.text) # ? internet.json.loads
+        
         self.__UpdateKeyCounters()
-        print(self.GetStatus)
-        print(self.__AutoJsResponse)
-        print(self.__AutoJsResponse["success"])
-        print(type(self.__AutoJsResponse["success"]))
         
         if 'message' in self.__AutoJsResponse:
             self.__GetValidKey
@@ -63,17 +63,17 @@ class BreachDir(Internet):
         else:
             if self.__AutoJsResponse["success"]:
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
-                self.AddResult(f"++ Passwords Found ++\n : \t\t{self.__GetPasswords}")
+                self.AddResult(f"++ Passwords Found ++: \t\t{self.__GetPasswords}")
                 self.AddResult("Source: {}".format(self.__GetSources))
             
             else:
                 self.AddResult("No Breaches found in BreachDirectory")
-
-            # print(self.GetResult)
+            
         
         
     @property
     def __GetSources(self):
+        
         querystring = {"func": "sources", "term": f"{self.GetSearchKey}"}
         self.__UpdateKeyCounters()
         return loads(get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring).text.replace("'", '"'))['sources'] # ? internet.json.loads()
@@ -86,7 +86,5 @@ class BreachDir(Internet):
             if breach["has_password"]:
                 passwds.append(breach["password"])
         return passwds 
-parent = Internet('mitnick@gmail.com', 'Email')
-finder = BreachDir()
-finder.Search()
-print(finder.GetResult)
+    
+

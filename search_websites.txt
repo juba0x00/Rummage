@@ -1,14 +1,11 @@
 # Rula 
-https://whatismyipaddress.com/breach-check
+
 https://namescan.io/FreeEmailCompromisedCheck.aspx
-https://www.hotsheet.com/inoitsu/
-https://breachchecker.com/dashboard
 https://haveibeenpwned.com/   # you should type 20 before any phone number in egypt 
 https://www.dehashed.com/
 https://scatteredsecrets.com/
 https://amibreached.com/
 https://www.idagent.com/password-compromise-checker/
 https://haveibeensold.app/
-https://breachdirectory.org/#
 https://intelx.io/
     
