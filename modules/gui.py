@@ -112,7 +112,7 @@ class GUI(ThemedTk):
         self.__tree.column('#4', stretch=NO, minwidth=0, width=120)
         self.__tree.pack()
         #self.DisplayData()
-        self.__display_screen.mainloop()
+       
 
 
 
@@ -126,6 +126,6 @@ class GUI(ThemedTk):
             'scidgrey', 'scidmint', 'scidpink', 'scidpurple', 'scidsand', 'smog', 'winxpblue', 'yaru'
             ]
         self.theme = self.Themes[18]
-        self.mainloop()
+         self.__display_screen.mainloop()
         
         GUI()
