@@ -90,7 +90,7 @@ class Internet(metaclass=ABCMeta):
                 return True
         return False
     
-    @property 
+    
     def GetCountry():
         return get('https://am.i.mullvad.net/country').text.replace('\n', '')
         
