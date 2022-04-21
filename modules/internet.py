@@ -9,7 +9,7 @@
 # class attributes:
 # Result
 # Status
-from leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
+from modules.leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
 
 
 
@@ -27,7 +27,7 @@ class Internet(LeaksFinder):
                 return True
         return False
     
-    @property 
+    
     def GetCountry():
         return get('https://am.i.mullvad.net/country').text.replace('\n', '')
         

@@ -1,4 +1,4 @@
-from internet import Internet
+from modules.internet import Internet
 
 country = Internet.GetCountry()
 def CheckinputType(data):
