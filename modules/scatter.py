@@ -1,30 +1,33 @@
-from modules.internet import Internet, get, BeautifulSoup, post
+from internet import Internet, get, BeautifulSoup, post
 
 
 #!status
 """
 Scatter Attributes: 
     self.
-        __ScatterSoup
+        ScatterSoup
         __ScatterResHead 
         __ScatterSession
         __ScatterCSRF
         
-"""
+"""  
+
 class ScatterSecrets(Internet):
     
-    def __init__(self):
-        self.__GetContent()
+    def __init(self):
+        self.GetContent()
         self.__GetCookie()
         self.__GetCSRF()
 
 
     def __GetContent(self):
+        self.AddStatus("[-] Establishing connection with Scatter Secrets.")
         res = get('https://scatteredsecrets.com/')
         self.__ScatterSoup = BeautifulSoup(res.content, 'html.parser')
         self.__ScatterResHead = res.headers
         
     def __GetCookie(self):
+        self.AddStatus("[-] Create a new ScatterSecrets session.")
         self.__Session = self.__ScatterResHead['set-cookie'].split(';')[0].split('=')[1]
         
     def __GetCSRF(self):
@@ -34,7 +37,7 @@ class ScatterSecrets(Internet):
 
         
     def Search(self):
-        self.AddStatus('[+] ')
+        self.AddStatus('[-] Start searching in ScaterSecrets.')
         InputHeaders = {
             "Host": "scatteredsecrets.com",
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
@@ -53,9 +56,21 @@ class ScatterSecrets(Internet):
             "Te": "trailers"
         }
 
-
         Parameters = {"identifier" : self.GetSearchKey,
                     "csrf_token" : self.__CSRFToken,
                     "action" : "search"
                     }
-        self.AddResult(''.join(BeautifulSoup(post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters).content, 'html.parser').find('small', {'class': 'alerter'}).contents))
+        self.__Result = ''.join(BeautifulSoup(post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters).content, 'html.parser').find('small', {'class': 'alerter'}).contents).replace('\n', '')
+        if self.__CheckResult:
+            self.AddStatus('[+] BREACHES Found in ScatterSecrets __[+]')
+            self.AddResult(self.__Result)
+        else:
+            self.AddStatus("[+] You're SAFE :) [+]")
+
+
+
+    def __CheckResult(self):
+        if "Bad news" in self.__Result:
+            return True 
+        else:
+            return False

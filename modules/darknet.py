@@ -1,13 +1,9 @@
 # Hawash, Bassel, Azab
 # Darknet class is a child of internet class 
-R = '\033[31m' # red
-G = '\033[32m' # green
-C = '\033[36m' # cyan
-W = '\033[0m' # white
+
 
 # ! Search Type (Email or Username) don't support phone number or visa card 
-from matplotlib.pyplot import get
-from internet import Internet, session, get, post, BeautifulSoup
+from internet import Internet, session, get, BeautifulSoup
 import socks
 import socket
 from os import system
@@ -164,4 +160,6 @@ class DarkNet(Internet):
     def __HandleLeaks(self):  
         for span in self.__LeaksResult.find_all('span', {'style':'display:inline-block;color:White;background-color:DarkRed;border-width:2px;border-style:Solid;'}):
             self.AddResult(span.contents[0])
-        
+            self.IncreaseRiskLevel()
+
+

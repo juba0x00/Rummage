@@ -9,7 +9,7 @@
 # class attributes:
 # Result
 # Status
-from modules.leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
+from leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
 
 
 

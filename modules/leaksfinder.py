@@ -9,7 +9,7 @@ class LeaksFinder():
     __Status = ""
     __Result = ""
     __Source = ""
-    __RiskLevel = ""
+    __RiskLevel = 0
     __LastSearch = date.today()
     
     
@@ -17,9 +17,8 @@ class LeaksFinder():
         LeaksFinder.__SearchKey = InputSearchKey
         LeaksFinder.__SearchType = InputSearchType
         
-    def SetRiskLevel(self, NewValue):
-        if self.__RiskLevel < NewValue:
-            self.__RiskLevel = NewValue
+    def IncreaseRiskLevel(self, n=1):
+        self.__RiskLevel += n
         
     @property
     def GetRiskLevel(self):
@@ -41,6 +40,7 @@ class LeaksFinder():
     @property 
     def GetSources(self):
         return self.__Source
+    
     
     @staticmethod
     def AddResult(NewResult):

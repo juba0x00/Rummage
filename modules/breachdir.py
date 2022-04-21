@@ -65,6 +65,8 @@ class BreachDir(Internet):
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
                 self.AddResult(f"++ Passwords Found ++: \t\t{self.__GetPasswords}")
                 self.AddResult("Source: {}".format(self.__GetSources))
+                self.IncreaseRiskLevel()       
+                
             
             else:
                 self.AddResult("No Breaches found in BreachDirectory")

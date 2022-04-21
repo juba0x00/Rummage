@@ -4,13 +4,12 @@
 
 # class attributes:
 # SearchLevel
+from tkinter import *
+import tkinter.ttk as ttk
+
 from ttkthemes import ThemedTk
 class GUI(ThemedTk):
-    def __init__(self):
-        # import libraries
-        # tkinter for GUI
-        from tkinter import *
-        import tkinter.ttk as ttk
+    
 
     def __init__(self):
         # creating window
@@ -18,7 +17,7 @@ class GUI(ThemedTk):
         # setting width and height for window
         self.__display_screen.geometry('1350x690+1+1')
         # setting title for window
-        self.__display_screen.title("Leaks Finder")
+        self.__display_screen.title("Leaks ")
         # variables for storing input
         self.__FullSearch = StringVar()
         self.__fname = StringVar()
@@ -91,8 +90,8 @@ class GUI(ThemedTk):
         scrollbarx = Scrollbar(MidViewForm, orient=HORIZONTAL)
         scrollbary = Scrollbar(MidViewForm, orient=VERTICAL)
         self.__tree = ttk.Treeview(MidViewForm, columns=("Id", "FirstName", "LastName", "Gender", "Address", "Contact"),
-                                   selectmode="extended", height=100, yscrollcommand=scrollbary.set,
-                                   xscrollcommand=scrollbarx.set)
+                                    selectmode="extended", height=100, yscrollcommand=scrollbary.set,
+                                    xscrollcommand=scrollbarx.set)
         scrollbary.config(command=self.__tree.yview)
         scrollbary.pack(side=RIGHT, fill=Y)
         scrollbarx.config(command=self.__tree.xview)
@@ -112,7 +111,7 @@ class GUI(ThemedTk):
         self.__tree.column('#4', stretch=NO, minwidth=0, width=120)
         self.__tree.pack()
         #self.DisplayData()
-       
+        
 
 
 
@@ -126,6 +125,6 @@ class GUI(ThemedTk):
             'scidgrey', 'scidmint', 'scidpink', 'scidpurple', 'scidsand', 'smog', 'winxpblue', 'yaru'
             ]
         self.theme = self.Themes[18]
-         self.__display_screen.mainloop()
+            self.__display_screen.mainloop()
         
-        GUI()
+test = GUI()
