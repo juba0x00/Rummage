@@ -26,13 +26,14 @@ self.
 # ? class name(file_name.class_name)
 class DarkNet(Internet):
     def __init__(self): 
+        print('init')
         self.session = session() # ? internet.requests.session()
         self.session.proxies["http"] = "socks5h://localhost:9050"
         self.session.proxies["https"] = "socks5h://localhost:9050"
     #   socks.set_default_proxy(proxy_type, addr, port)
         socks.set_default_proxy(socks.SOCKS5, "localhost", 9050)
         socket.socket = socks.socksocket
-        self.__CheckTorConnection()
+        # self.__CheckTorConnection()
         self.__GetContent()        
         self.__Get_EVENTVALIDATION()
         self.__Get_VIEWSTATE()
@@ -49,42 +50,55 @@ class DarkNet(Internet):
 
     socket.getaddrinfo = GetAddrInfo
 
-    def __CheckTorConnection(self):
-        URLs = [
-            'http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', 
-            'http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/', 
-            'http://freedomzw5x5tzeit4jgc3gvic3bmecje53hwcoc3nnwe2c3gsukdfid.onion/databases',
-            'http://3bbad7fauom4d6sgppalyqddsqbf5u5p56b5k5uk2zxsy3d6ey2jobad.onion/'
-            ]
-        for URL in URLs:
-            try:
-                break
-            except:
-                #! Show Error window "Tor is not running"
-                if platform == 'linux' or platform == 'Linux':
-                    try:
-                        system('systemctl start tor.service')
-                        sleep(2)
-                    except:
-                        try:
-                            system('apt install tor && systemctl start tor.service')
-                            sleep(2)
-                        except:
-                            #! show error window "Install tor manually please before running the program (follow your distro documentation)"
-                            pass
-                else: 
-                    #? Windows or Mac
-                    #! Show Error window "please, start tor manually  before using the program"
+    # def __CheckTorConnection(self):
+    #     self.AddStatus('[-]Checking TOR Connection[-]')
 
-                    pass
+    #     URLs = [
+    #         'http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', 
+    #         'http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/', 
+    #         'http://freedomzw5x5tzeit4jgc3gvic3bmecje53hwcoc3nnwe2c3gsukdfid.onion/databases',
+    #         'http://3bbad7fauom4d6sgppalyqddsqbf5u5p56b5k5uk2zxsy3d6ey2jobad.onion/'
+    #         ]
+    #     for URL in URLs:
+    #         try:
+    #             self.AddStatus('[-]Requestion A Dark net website[-]')
+
+    #             get(URL)
+    #             break
+    #         except:
+    #             self.AddStatus('[-]Try to start TOR service[-]')
+
+    #             #! Show Error window "Tor is not running"
+    #             if platform == 'linux' or platform == 'Linux':
+    #                 try:
+    #                     system('systemctl start tor.service')
+    #                     sleep(2)
+    #                 except:
+    #                     try:
+    #                         system('apt install tor && systemctl start tor.service')
+    #                         sleep(2)
+    #                     except:
+    #                         #! show error window "Install tor manually please before running the program (follow your distro documentation)"
+    #                         pass
+    #             else: 
+    #                 #? Windows or Mac
+    #                 #! Show Error window "please, start tor manually  before using the program"
+
+    #                 pass
     
     
     def __GetContent(self):
-        res = get('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass')  # ? internet.requests.get()      
+        print('getting contenty ')
+        res = get('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass')  # ? internet.requests.get()
+        print('response done ')      
         self.__ResponseHeaders = res.headers
+        print('parsing')
         self.__soup = BeautifulSoup(res.content, 'lxml') 
+        
 
     def __GetCookies(self):
+        print('getting cook ')
+        
         SetCookie = self.__ResponseHeaders['Set-Cookie']
         SetCookie = SetCookie.split()
         
@@ -96,26 +110,30 @@ class DarkNet(Internet):
 
 
     def __Get_EVENTVALIDATION(self):
+        print('getting event ')
+        
         # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'})
         # self.__EVENTVALIDATION = tag.attrs['value']
         self.__EVENTVALIDATION = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'}).attrs['value']
         
         
     def __Get_VIEWSTATE(self):
+        print('getting vew ')
+        
         # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATE'})
         # self.__VIEWSTATE = tag.attrs['value']
         self.__VIEWSTATE = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATE'}).attrs['value']
         
         
     def __Get_VIEWSTATEGENERATOR(self):
+        print('getting gen ')
+        
         # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'})
         # self.__VIEWSTATEGENERATOR = tag.attrs['value']
         self.__VIEWSTATEGENERATOR = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATEGENERATOR'}).attrs['value']
         
         
     def Search(self):
-        if not self.__DarkInputValidate:
-            self.AddResult('Search Input not supported in Dark web search')
         LeaksHeaders = {
             'Host': 'leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -148,9 +166,14 @@ class DarkNet(Internet):
         # ? 2 soup = BeautifulSoup(res.content, 'html.parser')
         # ? 3 self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})
         # ? 1+2 soup = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser')
+        res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData)
+        print('result here ')
+        soup = BeautifulSoup(res.content, 'html.parser')
+        self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})
+        print('soup done ')
         
         # ? 1+2+3 
-        self.__LeaksResult = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser').find('div', {'class': 'ResultPanel'})
+        # self.__LeaksResult = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser').find('div', {'class': 'ResultPanel'})
         if self.__LeaksResult:
             self.__HandleLeaks()
         else:

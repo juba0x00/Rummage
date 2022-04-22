@@ -46,7 +46,7 @@ def HandilingPhoneformat(code , StartRange, EndRange,Number):
         l = list(Number)
         l.insert(0,code)
         Number = ''.join(l)
-    print(Number)
+
     return (len(Number) >= StartRange and len(Number)<=EndRange ) and Number.isnumeric() and Number[:len(code)] == code
 
 

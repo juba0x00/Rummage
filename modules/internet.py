@@ -12,7 +12,6 @@
 from modules.leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
 
 
-
 class Internet(LeaksFinder):
     
     @property

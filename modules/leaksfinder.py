@@ -3,6 +3,7 @@ from requests import get, session, post
 from bs4 import BeautifulSoup
 from json import loads, dump
 
+
 class LeaksFinder():
     __SearchKey = ""
     __SearchType = ""
@@ -46,23 +47,23 @@ class LeaksFinder():
         return self.__Source
     
     
-    @property
-    def AddResult(NewResult):
-        # if NewResult not in LeaksFinder.__Result:
-        LeaksFinder.__Result += NewResult + '\n'
+
+    def AddResult(self, NewResult):
+        if NewResult not in LeaksFinder.__Result:
+            LeaksFinder.__Result += NewResult + '\n'
     
     
-    def GetResult(self):
-        return self.__Result
+    def GetResult():
+        return LeaksFinder.__Result
         
         
     @staticmethod
     def AddStatus(NewStatus):
         LeaksFinder.__Status += NewStatus + '\n'
     
-    @property 
-    def GetStatus(self):
-        return self.__Status
+    
+    def GetStatus():
+        return LeaksFinder.__Status
     
     @property
     def GetSearchKey(self):

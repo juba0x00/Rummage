@@ -62,11 +62,11 @@ class ScatterSecrets(Internet):
                     }
         content = post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters).content
         soup = BeautifulSoup(content, 'html.parser')
-        print(soup)
-        # self.__Result = soup.find('small', {'class': 'alerter'}).contents
+        self.__Result = soup.find('small', {'class': 'alerter'}).contents
+        self.__Result = self.__Result.pop()
         if self.__CheckResult:
             self.AddStatus('[+] BREACHES Found in ScatterSecrets __[+]')
-            # self.AddResult(self.__Result)
+            self.AddResult(self.__Result)
         else:
             self.AddStatus("[+] You're SAFE :) [+]")
 
