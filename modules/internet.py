@@ -9,13 +9,11 @@
 # class attributes:
 # Result
 # Status
-from leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
+from modules.leaksfinder import LeaksFinder, get, post, session,  BeautifulSoup, loads, dump
 
 
 
 class Internet(LeaksFinder):
-    
-    
     
     @property
     def CheckConnection(self):

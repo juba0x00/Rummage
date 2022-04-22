@@ -1,4 +1,4 @@
-from internet import Internet, get, BeautifulSoup, post
+from modules.internet import Internet, get, BeautifulSoup, post
 
 
 #!status
@@ -14,8 +14,8 @@ Scatter Attributes:
 
 class ScatterSecrets(Internet):
     
-    def __init(self):
-        self.GetContent()
+    def __init__(self):
+        self.__GetContent()
         self.__GetCookie()
         self.__GetCSRF()
 
@@ -60,10 +60,13 @@ class ScatterSecrets(Internet):
                     "csrf_token" : self.__CSRFToken,
                     "action" : "search"
                     }
-        self.__Result = ''.join(BeautifulSoup(post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters).content, 'html.parser').find('small', {'class': 'alerter'}).contents).replace('\n', '')
+        content = post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters).content
+        soup = BeautifulSoup(content, 'html.parser')
+        print(soup)
+        # self.__Result = soup.find('small', {'class': 'alerter'}).contents
         if self.__CheckResult:
             self.AddStatus('[+] BREACHES Found in ScatterSecrets __[+]')
-            self.AddResult(self.__Result)
+            # self.AddResult(self.__Result)
         else:
             self.AddStatus("[+] You're SAFE :) [+]")
 

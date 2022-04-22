@@ -1,34 +1,17 @@
+from modules.search import Search
+from modules.gui import GUI 
 from modules.leaksfinder import LeaksFinder
-from modules.internet import Internet 
-from modules.darknet import DarkNet
-from modules.scatter import ScatterSecrets
-from modules.database import Database
-from modules.breachdir import BreachDir
-from modules.gui import GUI
-from modules.validateinput import CheckinputType
-
 # countries: Egypt, Cameroon, Algeria   
-# window = GUI()
+window = GUI()
 
 key = 'mitnick@gmail.com'
 
-KeyType = CheckinputType(key)
-parent = LeaksFinder(key, KeyType)
+Finder = Search()
+Finder.StartSearch(key)
+parent = LeaksFinder()
 
-ScatterFinder = ScatterSecrets()
-DatabaseFinder = Database()
-BreachDirFinder = BreachDir()
-
-
-DarkFinder = DarkNet()
-
-BreachDirFinder.Search()
-DarkFinder.Search()
-print(BreachDirFinder.GetResult)
-print('_____________________________________________')
-print(BreachDirFinder.GetResult)
-
+print(parent.GetResult)
 # TODO connect classes 
 # TODO database payleaks 
 # TODO GUI 
-# TODO increase level 
+# TODO increase level ase level 

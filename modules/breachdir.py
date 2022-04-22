@@ -63,8 +63,8 @@ class BreachDir(Internet):
         else:
             if self.__AutoJsResponse["success"]:
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
-                self.AddResult(f"++ Passwords Found ++: \t\t{self.__GetPasswords}")
-                self.AddResult("Source: {}".format(self.__GetSources))
+                # self.AddResult(f"++ Passwords Found ++: \t\t{self.__GetPasswords}")
+                # self.AddResult("Source: {}".format(self.__GetSources))
                 self.IncreaseRiskLevel()       
                 
             

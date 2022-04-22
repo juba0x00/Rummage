@@ -7,7 +7,7 @@ def CheckinputType(data):
     elif IsVisa(data):
         return "Visa"
     elif  IsPhoneNumber(data):
-        return "Phone Number"
+        return "PhoneNumber"
 
     elif data.isalpha():
         return "Username"

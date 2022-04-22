@@ -3,7 +3,7 @@
 
 
 # ! Search Type (Email or Username) don't support phone number or visa card 
-from internet import Internet, session, get, BeautifulSoup
+from modules.internet import Internet, session, get, BeautifulSoup
 import socks
 import socket
 from os import system

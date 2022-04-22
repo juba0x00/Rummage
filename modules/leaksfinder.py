@@ -13,7 +13,11 @@ class LeaksFinder():
     __LastSearch = date.today()
     
     
-    def __init__(self, InputSearchKey, InputSearchType):
+    def __init__(self):
+        pass
+    
+    
+    def SetAtrrs(InputSearchKey, InputSearchType):
         LeaksFinder.__SearchKey = InputSearchKey
         LeaksFinder.__SearchType = InputSearchType
         
@@ -42,13 +46,12 @@ class LeaksFinder():
         return self.__Source
     
     
-    @staticmethod
+    @property
     def AddResult(NewResult):
-        if NewResult not in LeaksFinder.__Result:
-            LeaksFinder.__Result += NewResult + '\n'
+        # if NewResult not in LeaksFinder.__Result:
+        LeaksFinder.__Result += NewResult + '\n'
     
     
-    @property    
     def GetResult(self):
         return self.__Result
         
