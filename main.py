@@ -11,9 +11,9 @@ from modules.database import Database
 from modules.breachdir import BreachDir
 from modules.validateinput import CheckinputType
 
-            
 
-key = 'mitnick'
+
+key = 'mitnick@gmail.com'
 print('start')
 Finder = Search()
 Finder.StartSearch(key)

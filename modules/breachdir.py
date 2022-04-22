@@ -1,5 +1,7 @@
 # from internet import Internet
-from modules.internet import Internet, get, loads, dump
+from modules.internet import Internet
+from requests import get
+from json import loads, dump 
 # Breach Directory Attributes : 
 #     self.
 #         __JsonKeys 

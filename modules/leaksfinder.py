@@ -1,7 +1,6 @@
 from datetime import date 
-from requests import get, session, post
 from bs4 import BeautifulSoup
-from json import loads, dump
+from requests import get 
 
 
 class LeaksFinder():
