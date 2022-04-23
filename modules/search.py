@@ -6,18 +6,27 @@ from modules.database import Database
 from modules.breachdir import BreachDir
 from modules.validateinput import CheckinputType
 from os import getcwd
+from sys import platform 
 import threading 
-from time import sleep
-import concurrent.futures as con
+
 class Search():
         
     def __init__(self):
         self.__CWD = getcwd()
 
+    @property
+    def __FileSystemStructure(self):
+        if platform == 'Linux' or platform == 'linux' or 'Darwin':
+            return f'{self.__CWD}/databases/'
+        elif platform == 'win32' or platform == 'windows':
+            return f'{self.__CWD}\databases'    
+            
+            
     def __EmailSearch(self):
         self.BreachDirFinder = BreachDir()
         self.ScatterFinder = ScatterSecrets()
         self.DarkFinder = DarkNet()
+        
         
         t1 = threading.Thread(target=self.ScatterFinder.Search())
         t2 = threading.Thread(target=self.BreachDirFinder.Search())
@@ -43,8 +52,8 @@ class Search():
         SearchType = CheckinputType(SearchKey)
         LeaksFinder.SetAtrrs(SearchKey, SearchType)
 
-        # self.DatabaseFinder = Database()
-        # self.DatabaseFinder.Search()  # ? History Search Default Database name
+        self.DatabaseFinder = Database()
+        self.DatabaseFinder.Search(f'{self.__FileSystemStructure}History')  # ? History Search Default Database name
         
         if SearchType == 'Email':
             self.__EmailSearch()
@@ -53,10 +62,10 @@ class Search():
             self.__UsernameSearch()
                 
         elif SearchType == 'PhoneNumber':
-            self.DatabaseFinder.Search(Internet.GetCountry)
+            self.DatabaseFinder.Search(f'{self.__FileSystemStructure}{Internet.GetCountry}')
             
         elif SearchType == 'Visa':
-            self.DatabaseFinder.Search('Visa')
+            self.DatabaseFinder.Search(f'{self.__FileSystemStructure}Visa')
         else:
             # ! window error 
             pass
@@ -65,7 +74,9 @@ class Search():
         
         # ! @Osama 
         # if SearchType == 'Email':
+            
         #     self.DarkFinder = DarkNet()
+        #     self.ScatterFinder = ScatterSecrets()
         #     with con.ThreadPoolExecutor() as execute:
         #         results = [execute.submit(self.DarkFinder.Search()), execute.submit(self.ScatterFinder.Search())]
         #         for i in con.as_completed(results):

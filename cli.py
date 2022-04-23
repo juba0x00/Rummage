@@ -16,6 +16,16 @@ UNDERLINE = '\033[4m'
 GREEN = '\033[32m'
 BOLD = '\033[1m'
 
+print("""%s
+        ____                                             
+        |  _ \ _   _ _ __ ___  _ __ ___   __ _  __ _  ___ 
+        | |_) | | | | '_ ` _ \| '_ ` _ \ / _` |/ _` |/ _ \
+        |  _ <| |_| | | | | | | | | | | | (_| | (_| |  __/
+        |_| \_\\__,_|_| |_| |_|_| |_| |_|\__,_|\__, |\___|
+                                            |___/      
+                                             
+                                             
+                                             """ % (RED))
 
 SearchKey = input(GREEN + BOLD + 'Enter Your Search Key: ' + RESET)
 
@@ -28,7 +38,12 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 Finder = Search()
 Finder.Search(SearchKey)
 print(SEP)
-print(MAGENTA + LeaksFinder.GetSources() + RESET)
+
+sources = LeaksFinder.GetSources()
+
+if len(sources) > 1:
+    print(MAGENTA + sources + RESET)
+
 print(RED + BOLD + LeaksFinder.GetResult() + RESET)
 
 print(BOLD + YELLOW + 'risk level -> {} {}'.format(LeaksFinder.GetRiskLevel(), RESET))
@@ -40,6 +55,8 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 # TODO GUI 
 # TODO Start TOR in windows 
+# TODO TOR Connection Validation 
+# TODO Linux Redirect Tor command output (HANDLE ME flag)
 # TODO database 
     # TODO directory hawash 
     # TODO insert history 

@@ -1,7 +1,6 @@
 from datetime import date 
 from bs4 import BeautifulSoup
 from requests import get 
-from os import getcwd
 
 RED = '\033[93m'
 YELLOW = '\033[33m'
@@ -18,7 +17,7 @@ class LeaksFinder():
     __SearchType = ""
     __Status = ""
     __Result = ""
-    __Source = "Sources: \n"
+    __Source = ""
     __RiskLevel = 0
     __LastSearch = date.today()
     

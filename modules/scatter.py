@@ -39,7 +39,8 @@ class ScatterSecrets(Internet):
 
     def __GetContent(self):
         self.AddStatus("[-] Establishing connection with Scatter Secrets.")
-        res = self.Session.get('https://scatteredsecrets.com/')        
+        res = self.Session.get('https://scatteredsecrets.com/')  
+        open('scatter', 'w').write(str(res.text))      
         self.__ScatterSoup = BeautifulSoup(res.content, 'html.parser')
         self.__ResponseHeaders = res.headers
         
