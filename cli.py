@@ -57,6 +57,7 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 # TODO Start TOR in windows 
 # TODO TOR Connection Validation 
 # TODO Linux Redirect Tor command output (HANDLE ME flag)
+# TODO Add json requirement in README.md
 # TODO database 
     # TODO directory hawash 
     # TODO insert history 
