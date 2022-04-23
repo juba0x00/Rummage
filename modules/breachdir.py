@@ -31,6 +31,7 @@ class BreachDir(Internet):
                 count = self.__JsonKeys[key]
                 MinKey = key
                 
+                
         if self.__JsonKeys[MinKey] == 50:
             #! show Error Windows "all the keys are invalid "
             pass 
@@ -57,8 +58,8 @@ class BreachDir(Internet):
         querystring = {"func": "auto", "term": f"{self.GetSearchKey}"}
         res = get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring)
         self.__AutoJsResponse = loads(res.text) # ? internet.json.loads
-        
         self.__UpdateKeyCounters()
+        
         
         if 'message' in self.__AutoJsResponse:
             self.__GetValidKey
@@ -66,13 +67,19 @@ class BreachDir(Internet):
         else:
             if self.__AutoJsResponse["success"]:
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
-                self.AddResult(f"++ Passwords Found ++: \t\t{self.__GetPasswords}")
-                self.AddResult("Source: {}".format(self.__GetSources))
-                self.IncreaseRiskLevel()       
+                self.AddStatus('[+] Passwords Found in Breach Directory [+]')
+                self.AddResult("[+] Passwords Found in Breach Directory [+]:\n ")
+                for password in self.__GetPasswords:
+                    self.AddResult(password)
+                self.AddResult("[+] Sources [+]:\n")
+                for source in self.__GetSources:
+                    self.AddSource(source)
+                self.IncreaseRiskLevel()
                 
             
             else:
-                self.AddResult("No Breaches found in BreachDirectory")
+                self.AddStatus('[+] No Breaches found in BreachDirectory [+]')
+                self.AddResult("[+] No Breaches found in BreachDirectory [+]")
             
         
         

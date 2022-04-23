@@ -4,10 +4,6 @@ from modules.leaksfinder import LeaksFinder
 
 class Database(LeaksFinder):        
         
-    def __init__(self):
-        pass
-        
-        
         
     def __DBConnect(self, DatabaseName):
         self.__conn = sqlite3.connect(f'{DatabaseName}.db')
@@ -15,14 +11,14 @@ class Database(LeaksFinder):
 
     
     def Search(self, DatabaseName):
-        self.__DBConnect(DatabaseName) #[()]
+        self.__DBConnect(DatabaseName) 
         try:
             table = self.__cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()[0][0]
             
         except:
             return False
             
-        column = self.__cursor.description[0][0]
+        column = self.__cursor.description.pop()[0]
         query = f"SELECT {column} FROM {table} WHERE {column}='{self.GetSearchKey}'"
         self.__cursor.execute(query)
         self.__conn.close()

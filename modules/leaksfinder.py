@@ -1,6 +1,14 @@
 from datetime import date 
 from bs4 import BeautifulSoup
 from requests import get 
+from os import getcwd
+
+RED = '\033[31m'
+YELLOW = '\033[33m'
+UNDERLINE = '\033[4m'
+CYAN = '\033[36m'
+GREEN = '\033[32m'
+RESET = '\033[0m'
 
 
 class LeaksFinder():
@@ -11,10 +19,6 @@ class LeaksFinder():
     __Source = ""
     __RiskLevel = 0
     __LastSearch = date.today()
-    
-    
-    def __init__(self):
-        pass
     
     
     def SetAtrrs(InputSearchKey, InputSearchType):
@@ -38,16 +42,16 @@ class LeaksFinder():
         return self.__LastSearch
     
     def AddSource(self, NewSource):
-        if not NewSource in self.__Source:
-            self.__Source += NewSource + '\n' 
-    
-    @property 
-    def GetSources(self):
-        return self.__Source
+        # if not NewSource in self.__Source:
+        self.__Source += NewSource + '\n' 
     
     
-
-    def AddResult(self, NewResult):
+    def GetSources():
+        return LeaksFinder.__Source
+    
+    
+    @staticmethod
+    def AddResult(NewResult):
         if NewResult not in LeaksFinder.__Result:
             LeaksFinder.__Result += NewResult + '\n'
     
@@ -58,7 +62,15 @@ class LeaksFinder():
         
     @staticmethod
     def AddStatus(NewStatus):
+        if str(NewStatus).startswith('[*]'):
+            print(GREEN + NewStatus + RESET)
+        elif str(NewStatus).startswith('[+]'):
+            print(YELLOW + UNDERLINE + NewStatus + RESET)
+        else:
+            print(CYAN + NewStatus  + RESET)
+            
         LeaksFinder.__Status += NewStatus + '\n'
+        
     
     
     def GetStatus():
