@@ -8,11 +8,12 @@ from modules.validateinput import CheckinputType
 from os import getcwd
 import threading 
 from time import sleep
-
+import concurrent.futures as con
 class Search():
         
     def __init__(self):
         self.__CWD = getcwd()
+
     def __EmailSearch(self):
         self.BreachDirFinder = BreachDir()
         self.ScatterFinder = ScatterSecrets()
@@ -41,7 +42,7 @@ class Search():
     def Search(self, SearchKey):
         SearchType = CheckinputType(SearchKey)
         LeaksFinder.SetAtrrs(SearchKey, SearchType)
-        
+
         # self.DatabaseFinder = Database()
         # self.DatabaseFinder.Search()  # ? History Search Default Database name
         
@@ -51,11 +52,27 @@ class Search():
         elif SearchType == 'Username':
             self.__UsernameSearch()
                 
-        # elif SearchType == 'PhoneNumber':
-        #     self.DatabaseFinder.Search(Internet.GetCountry)
+        elif SearchType == 'PhoneNumber':
+            self.DatabaseFinder.Search(Internet.GetCountry)
             
-        # elif SearchType == 'Visa':
-        #     self.DatabaseFinder.Search('Visa')
+        elif SearchType == 'Visa':
+            self.DatabaseFinder.Search('Visa')
         else:
             # ! window error 
-            pass 
+            pass
+        
+        
+        
+        # ! @Osama 
+        # if SearchType == 'Email':
+        #     self.DarkFinder = DarkNet()
+        #     with con.ThreadPoolExecutor() as execute:
+        #         results = [execute.submit(self.DarkFinder.Search()), execute.submit(self.ScatterFinder.Search())]
+        #         for i in con.as_completed(results):
+        #             print(i.result())
+
+        # elif SearchType == 'Username':
+        #     with con.ThreadPoolExecutor() as execute:
+        #         results = [execute.submit(self.DarkFinder.Search())]
+        #         for i in con.as_completed(results):
+        #             print(i.result()) 

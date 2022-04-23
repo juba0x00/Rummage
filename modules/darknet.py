@@ -91,7 +91,7 @@ class DarkNet(Internet):
     def __GetContent(self):
         self.AddStatus('[-] Establishing TOR Connection [-]')
         res = get('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass')  # ? internet.requests.get()
-        self.AddStatus('[*] Onion Site Connected [*]')
+        self.AddStatus('[-] Onion Site Connected [-]')
         self.__ResponseHeaders = res.headers
         self.__soup = BeautifulSoup(res.content, 'lxml') 
         

@@ -55,7 +55,7 @@ class ScatterSecrets(Internet):
 
         
     def Search(self):
-        self.AddStatus('[-] Start searching in ScaterSecrets. [-]')
+        self.AddStatus('[*] Start searching in ScaterSecrets. [*]')
         InputHeaders = {
             "Host": "scatteredsecrets.com",
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
@@ -83,16 +83,17 @@ class ScatterSecrets(Internet):
         self.AddStatus('[-] ScatterSecrets reponded [-]')
         self.__Result = soup.find('small', {'class': 'alerter'}).contents
         self.__Result = self.__Result.pop()
-        if self.__CheckResult:
+        if self.__CheckResult():
             self.AddStatus('[+] BREACHES Found in ScatterSecrets [+]')
             self.AddResult(self.__Result)
         else:
             self.AddStatus("[+] You're SAFE :) [+]")
-
-
+            self.AddResult('No Breaches found in ScatterSecrets')
+            
+        
 
     def __CheckResult(self):
-        if "Bad news" in self.__Result:
+        if f"Bad news. Leaked passwords found for {self.GetSearchKey}." == self.__Result:
             return True 
         else:
             return False

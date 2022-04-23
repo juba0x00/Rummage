@@ -3,12 +3,14 @@ from bs4 import BeautifulSoup
 from requests import get 
 from os import getcwd
 
-RED = '\033[31m'
+RED = '\033[93m'
 YELLOW = '\033[33m'
 UNDERLINE = '\033[4m'
 CYAN = '\033[36m'
 GREEN = '\033[32m'
 RESET = '\033[0m'
+BOLD = '\033[1m'
+HEADER = '\033[95m'
 
 
 class LeaksFinder():
@@ -16,34 +18,38 @@ class LeaksFinder():
     __SearchType = ""
     __Status = ""
     __Result = ""
-    __Source = ""
+    __Source = "Sources: \n"
     __RiskLevel = 0
     __LastSearch = date.today()
     
     
+    @staticmethod
     def SetAtrrs(InputSearchKey, InputSearchType):
         LeaksFinder.__SearchKey = InputSearchKey
         LeaksFinder.__SearchType = InputSearchType
         
-    def IncreaseRiskLevel(self, n=1):
-        self.__RiskLevel += n
         
-    @property
-    def GetRiskLevel(self):
-        return self.__RiskLevel
+    @staticmethod
+    def IncreaseRiskLevel():
+        LeaksFinder.__RiskLevel += 1
+        
+    
+    def GetRiskLevel():
+        return LeaksFinder.__RiskLevel
     
     
     def SetLastSearch(self, NewValue):
         if self._LastSearch < NewValue:
             self._LastSearch = NewValue
     
-    @property
-    def GetLastSearch(self):
-        return self.__LastSearch
     
-    def AddSource(self, NewSource):
-        # if not NewSource in self.__Source:
-        self.__Source += NewSource + '\n' 
+    def GetLastSearch():
+        return LeaksFinder.__LastSearch
+    
+    
+    @staticmethod
+    def AddSource(NewSource):
+        LeaksFinder.__Source += NewSource + '\n' 
     
     
     def GetSources():
@@ -63,7 +69,7 @@ class LeaksFinder():
     @staticmethod
     def AddStatus(NewStatus):
         if str(NewStatus).startswith('[*]'):
-            print(GREEN + NewStatus + RESET)
+            print(HEADER + '___________________________________________\n' + BOLD + GREEN + NewStatus + RESET)
         elif str(NewStatus).startswith('[+]'):
             print(YELLOW + UNDERLINE + NewStatus + RESET)
         else:

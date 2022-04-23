@@ -68,18 +68,18 @@ class BreachDir(Internet):
             if self.__AutoJsResponse["success"]:
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
                 self.AddStatus('[+] Passwords Found in Breach Directory [+]')
-                self.AddResult("[+] Passwords Found in Breach Directory [+]:\n ")
+                self.AddResult("Passwords Found in Breach Directory:\n ")
                 for password in self.__GetPasswords:
                     self.AddResult(password)
-                self.AddResult("[+] Sources [+]:\n")
+                    self.IncreaseRiskLevel()
+                
                 for source in self.__GetSources:
                     self.AddSource(source)
-                self.IncreaseRiskLevel()
                 
             
             else:
                 self.AddStatus('[+] No Breaches found in BreachDirectory [+]')
-                self.AddResult("[+] No Breaches found in BreachDirectory [+]")
+                self.AddResult("No Breaches found in BreachDirectory")
             
         
         
