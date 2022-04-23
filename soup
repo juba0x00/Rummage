@@ -8,7 +8,7 @@
 <script src="/static/js/datatables.min.js"></script>
 <script src="/static/js/countUp.min.js"></script>
 <script async="" defer="" src="https://hcaptcha.com/1/api.js?onload=hCaptcha&amp;render=explicit"></script>
-<script nonce="6d535e5f7bd1026534d093c8f6689945">
+<script nonce="df57bb5ebee2304eda3f9c1db46347ff">
         var widgetID1 = null;
         var widgetID2 = null;
         var hCaptcha = function() {
@@ -51,7 +51,7 @@
 <meta content="https://scatteredsecrets.com/" property="og:url"/>
 <meta content="https://scatteredsecrets.com/static/img/logo.png" property="og:image"/>
 <meta content="1805" http-equiv="refresh"/>
-<style nonce="6d535e5f7bd1026534d093c8f6689945">
+<style nonce="df57bb5ebee2304eda3f9c1db46347ff">
       html{scroll-behavior: smooth;}
       #dashboard {text-align:justify; background-color:#f5f6f9; padding-top:15px; padding-bottom:10px; padding-left:15px; padding-right:15px; border-top:1px solid DarkGray;}
       #search {text-align:center; background-color:White; padding-top:20px; padding-bottom:25px; padding-left:15px; padding-right:15px;}
@@ -100,7 +100,7 @@
 <form action="/" id="form_signup" method="post">
 <div class="mb-3">
 <div class="text-center center2">
-<input name="csrf_token" type="hidden" value="ImViNjg3NWQzYmEwZjA2YzFmMTY4MTJmYTY0MjA2YmMwNmRlY2ZhZDAi.YmKPDA.VFuvL3jfVW_iEY9X0ow5VZ7sKns"/>
+<input name="csrf_token" type="hidden" value="ImY2MGEwYjgyNDRlYTUxNmJlOGExOTNkNWMyZjQyNTQ4OTA0ZWRlNzEi.YmPHhQ.ecmLilhPztCocC3Y3aN6wkbxUBc"/>
 <input name="action" type="hidden" value="signup"/>
 <p>Enter your email address to create an account.</p>
 <p><input class="form-control m-auto center lowercase border border-primary" id="email_register" name="email" pattern="^[a-zA-Z0-9.!#$%&amp;'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,24}$" placeholder="your email address" required="" title="Use a valid email address." type="text"/></p>
@@ -116,7 +116,7 @@
 </div>
 <label id="captcha_warning"></label>
 <div id="captcha1"></div>
-<script nonce="6d535e5f7bd1026534d093c8f6689945">
+<script nonce="df57bb5ebee2304eda3f9c1db46347ff">
                         $('#form_signup').submit(function(event)
                         {
                           var hcaptchaVal = hcaptcha.getResponse(widgetID1);
@@ -155,7 +155,7 @@
 <div class="text-center">
 <p>Please enter the email address associated with your account.</p>
 <p><input class="form-control m-auto center lowercase border border-primary" id="email_login" name="email" pattern="^[a-zA-Z0-9.!#$%&amp;'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,24}$" placeholder="your email address" required="" title="Use a valid email address." type="text"/></p>
-<input name="csrf_token" type="hidden" value="ImViNjg3NWQzYmEwZjA2YzFmMTY4MTJmYTY0MjA2YmMwNmRlY2ZhZDAi.YmKPDA.VFuvL3jfVW_iEY9X0ow5VZ7sKns"/>
+<input name="csrf_token" type="hidden" value="ImY2MGEwYjgyNDRlYTUxNmJlOGExOTNkNWMyZjQyNTQ4OTA0ZWRlNzEi.YmPHhQ.ecmLilhPztCocC3Y3aN6wkbxUBc"/>
 <input name="action" type="hidden" value="signin"/>
 <div class="modal-footer">
 <div class="m-auto"><button class="btn btn-primary" type="submit">Continue</button></div>
@@ -181,7 +181,7 @@
 <form action="/" class="col-xs-12 col-sm-10 col-md-8 col-lg-8 col-xl-6 m-auto" method="post">
 <div class="input-group center2">
 <input class="form-control m-auto px200 lowercase center border border-success" id="identifier" name="identifier" pattern="^[a-zA-Z0-9.!#$%&amp;'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,24}$|^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" placeholder="search email or domain" required="" title="enter a valid email address or domain name" type="search">
-<input name="csrf_token" type="hidden" value="ImViNjg3NWQzYmEwZjA2YzFmMTY4MTJmYTY0MjA2YmMwNmRlY2ZhZDAi.YmKPDA.VFuvL3jfVW_iEY9X0ow5VZ7sKns"/>
+<input name="csrf_token" type="hidden" value="ImY2MGEwYjgyNDRlYTUxNmJlOGExOTNkNWMyZjQyNTQ4OTA0ZWRlNzEi.YmPHhQ.ecmLilhPztCocC3Y3aN6wkbxUBc"/>
 <input name="action" type="hidden" value="search"/>
 <button class="btn btn-success green-background" type="submit"><i class="bi bi-search text-white"></i></button>
 </input></div>
@@ -446,7 +446,7 @@
 <p class="center">We are friendly people and like to help.<br/>If you prefer secure email, get our <a href="http://pgp.surfnet.nl/pks/lookup?search=contact%40scatteredsecrets.com" rel="noopener noreferrer" target="_blank">PGP key</a>.</p>
 <form action="/" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-8 m-auto" id="form_contact" method="post">
 <div class="mb-3">
-<input name="csrf_token" type="hidden" value="ImViNjg3NWQzYmEwZjA2YzFmMTY4MTJmYTY0MjA2YmMwNmRlY2ZhZDAi.YmKPDA.VFuvL3jfVW_iEY9X0ow5VZ7sKns"/>
+<input name="csrf_token" type="hidden" value="ImY2MGEwYjgyNDRlYTUxNmJlOGExOTNkNWMyZjQyNTQ4OTA0ZWRlNzEi.YmPHhQ.ecmLilhPztCocC3Y3aN6wkbxUBc"/>
 <input class="form-control center" name="name" placeholder="your name" required="" type="text">
 </input></div>
 <div class="mb-3">
@@ -457,7 +457,7 @@
 </div>
 <label id="captcha_warning2"></label>
 <div class="center" id="captcha2"></div>
-<script nonce="6d535e5f7bd1026534d093c8f6689945">
+<script nonce="df57bb5ebee2304eda3f9c1db46347ff">
                         $('#form_contact').submit(function(event)
                         {
                           var hcaptchaVal = hcaptcha.getResponse(widgetID2);
@@ -3892,7 +3892,7 @@
 <a class="text-light" data-bs-target="#privacy" data-bs-toggle="modal" href="#privacy">privacy</a>
 </div>
 </div>
-<script nonce="6d535e5f7bd1026534d093c8f6689945">
+<script nonce="df57bb5ebee2304eda3f9c1db46347ff">
         /* block spaces in search field */
         $('#identifier').on({ keydown:function(event) { if (event.which === 32) return false;}});
         

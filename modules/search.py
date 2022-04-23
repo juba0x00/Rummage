@@ -18,20 +18,16 @@ class Search():
     
     def StartSearch(self, SearchKey):
         SearchType = CheckinputType(SearchKey)
-        print(SearchType)
         LeaksFinder.SetAtrrs(SearchKey, SearchType) 
         
         # self.DbFinder.Search('History')
         
         if SearchType == 'Email':
-            print(' start breachdir ')
-            
-            self.BreachDirFinder.Search()
-            print('start scatter')
+
+            # self.BreachDirFinder.Search()
             
             self.ScatterFinder.Search()
-            
-            print('end scater, start darker')
+
             self.DarkFinder = DarkNet()
             
             self.DarkFinder.Search()

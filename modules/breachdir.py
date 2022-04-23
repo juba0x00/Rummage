@@ -21,7 +21,8 @@ class BreachDir(Internet):
         
         
     @property
-    def __GetValidKey(self):       
+    def __GetValidKey(self):    
+        self.AddStatus('[-] Getting Valid API Key [-]')   
         count = 100 
         MinKey = ''
         
@@ -52,7 +53,7 @@ class BreachDir(Internet):
 
 
     def Search(self):
-        self.AddStatus("[+] Searching in Breachdirectory.org")
+        self.AddStatus("[*] Searching in Breachdirectory.org [*]")
         querystring = {"func": "auto", "term": f"{self.GetSearchKey}"}
         res = get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring)
         self.__AutoJsResponse = loads(res.text) # ? internet.json.loads
