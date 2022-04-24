@@ -21,12 +21,13 @@ def IsVisa(Visa):
     
 countries = {
     "Egypt": [2, 11, 13],
-    "Cameroon":[],
+    "Cameroon":[237 ,9, 12],
     "Austria":[43,9,15],
     "Canada":[ 1, 9, 12],
     "Bahrain":[973,3,8],
-    "Belgium":[ 32,  ],
+    "Belgium":[ 32, 12,15 ],
     "China":[ 86, 10, 13],
+    "Isreal" : [972 ,9 , 12]
 }
 
 
