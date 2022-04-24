@@ -1,5 +1,4 @@
-# Leaks-Finder
-Application search for any leaks in the surface net and the Darknet
+# Rummage
 
 # About
 
@@ -21,7 +20,7 @@ The recommended version for Python 3 is **3.8. and above**
 
 # Dependencies
 
-Rummage depends on  `requests` ,`tor`,`datetime`,`os`,`threading`,`bs4`,`sqlte3`, `socks`,`socket` modules
+Rummage depends on  `requests` ,`tor`,`datetime`,`os`,`threading`,`bs4`,`sqlte3`, `socks`,`socket`,`json` modules
 
 These dependencies can be installed using the requirements file:
 
@@ -38,7 +37,7 @@ Alternatively, each module can be installed independently as shown below.
 
 ---
 
-### Requests Module ([http://docs.python-requests.org/en/latest/](http://docs.python-requests.org/en/latest/))
+### [Requests Module](http://docs.python-requests.org/en/latest/)
 
 - Install for Windows:
 
@@ -56,7 +55,9 @@ Alternatively, each module can be installed independently as shown below.
 
 `sudo pip install requests`
 
-## To Install tor ([https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi4ur_tqqr3AhVLi_0HHbvjBDQQFnoECBQQAw&url=https%3A%2F%2Ftb-manual.torproject.org%2Finstallation%2F&usg=AOvVaw3mYo5OI2enq-SRAwLNXrUw](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi4ur_tqqr3AhVLi_0HHbvjBDQQFnoECBQQAw&url=https%3A%2F%2Ftb-manual.torproject.org%2Finstallation%2F&usg=AOvVaw3mYo5OI2enq-SRAwLNXrUw))
+## To Install tor
+
+[More Information](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi4ur_tqqr3AhVLi_0HHbvjBDQQFnoECBQQAw&url=https%3A%2F%2Ftb-manual.torproject.org%2Finstallation%2F&usg=AOvVaw3mYo5OI2enq-SRAwLNXrUw)
 
 ### For Windows
 
@@ -149,4 +150,38 @@ pip install sockets
 
 ---
 
-###
+### To install json module
+
+```
+pip install json
+```
+
+---
+
+# Usage
+
+you can use our service from 3 interfaces (CLI , GUI and Web UI)
+
+## 1st UI (CLI)
+
+- After you run the CLI file you will find a list of 2 choices (single search , full search )
+- press “1”  or ”2” to choose
+    - 1st choice is “single search” you write the item you want to search for breaches for and press enter then the result will appear if your data is breached or not
+    - 2nd choice  is “full search” you write the items you want to search for breaches for and press enter then the result will appear if your data is breached or not
+        - those items are (Email address , User name , visa card (1st 5 digits - 2nd 5 digits) ,Phone number)
+    
+    Example:
+    
+
+## 2nd UI (GUI)
+
+Example:
+
+## 3rd UI (web UI)
+
+Example:
+
+# License
+
+Rummage is licensed under the GNU GPL v2.0 license. take a look at the [LICENSE](https://github.com/Juba0x4355/Leaks-Finder/blob/main/LICENSE)
+ for more information.
