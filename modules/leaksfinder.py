@@ -1,6 +1,9 @@
-from datetime import date 
+from datetime import date ,timedelta,datetime
 from bs4 import BeautifulSoup
 from requests import get 
+from sys import platform 
+from os import getcwd
+from datetime import timedelta
 
 RED = '\033[93m'
 YELLOW = '\033[33m'
@@ -20,6 +23,10 @@ class LeaksFinder():
     __Source = ""
     __RiskLevel = 0
     __LastSearch = date.today()
+    __Today = date.today()
+    __CWD = getcwd()
+    
+    
     
     
     @staticmethod
@@ -38,10 +45,13 @@ class LeaksFinder():
     
     
     def SetLastSearch(self, NewValue):
-        if self._LastSearch < NewValue:
-            self._LastSearch = NewValue
+        self.__LastSearch = NewValue
     
     
+    def SetRiskLevel(self, NewValue):
+        self.__RiskLevel = NewValue
+        
+        
     def GetLastSearch():
         return LeaksFinder.__LastSearch
     
@@ -100,5 +110,19 @@ class LeaksFinder():
     
     def GetCountry():
         return get('https://am.i.mullvad.net/country').text.replace('\n', '')
-        
-
+    
+    
+    def TrustHistory():
+        d1 = datetime.strptime(str(LeaksFinder.GetLastSearch()), "%Y-%m-%d")
+        d2 = datetime.strptime(str(LeaksFinder.__Today), "%Y-%m-%d")
+        return abs((d2 - d1).days) < 30
+    
+    
+    def FileSystemStructure():
+        if platform == 'Linux' or platform == 'linux' or platform == 'Darwin':
+            return f'{LeaksFinder.__CWD}/databases/'
+        elif platform == 'win32' or platform == 'windows':
+            return f'{LeaksFinder.__CWD}\databases'   
+        else:
+            # ! show error winow 
+            pass

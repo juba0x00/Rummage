@@ -39,6 +39,8 @@ class DarkNet(Internet):
         socket.socket = socks.socksocket
         self.__CheckTorConnection()
         self.__GetContent()
+        
+        
 
 
     def __CreateThreads(self):
@@ -184,6 +186,7 @@ class DarkNet(Internet):
         self.__LeaksResult = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData).content, 'html.parser').find('div', {'class': 'ResultPanel'})
         if self.__LeaksResult:
             self.__HandleLeaks()
+            self.AddStatus('[+] Breaches Found in the Dark web [+]')
             
         else:
             self.AddResult('No Leaks Found In the dark web')

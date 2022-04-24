@@ -23,13 +23,10 @@ YELLOW = '\033[33m'
 UNDERLINE = '\033[4m'
 GREEN = '\033[32m'
 BOLD = '\033[1m'
-print( RED + figlet_format('Rummage'))
+print( RED + BOLD + figlet_format('Rummage'))
 
 SearchKey = input(GREEN + BOLD + 'Enter Your Search Key: ' + RESET)
 
-# TorThread = Thread(target=system('tor >/dev/null 2>/dev/null'))  # ! HANDLE ME
-# TorThread.start()
-# TorThread.join()
 
 print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
@@ -52,10 +49,8 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 # TODO GUI @OMAR
 # TODO Start TOR in windows @RULA 
-# TODO Add json requirement in README.md
 # TODO countries code number validation 
 # TODO Handle Full search 
-# TODO database 
-    # TODO Get last search from database (method)
+# ! TODO PROBLEM Visa.db 
 
 
