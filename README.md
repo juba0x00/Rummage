@@ -37,7 +37,7 @@ Alternatively, each module can be installed independently as shown below.
 
 ---
 
-### [Requests Module][http://docs.python-requests.org/en/latest/]
+### [Requests Module](http://docs.python-requests.org/en/latest/)
 
 - Install for Windows:
 
