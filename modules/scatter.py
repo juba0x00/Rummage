@@ -80,6 +80,7 @@ class ScatterSecrets(Internet):
                     "action" : "search"
                     }
         content = self.Session.post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters, allow_redirects=True).content
+        self.AddStatus('[-] Search Result received [-]')
         soup = BeautifulSoup(content, 'html.parser')
         self.AddStatus('[-] ScatterSecrets reponded [-]')
         self.__Result = soup.find('small', {'class': 'alerter'}).contents

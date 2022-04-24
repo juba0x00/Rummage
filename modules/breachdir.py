@@ -57,6 +57,7 @@ class BreachDir(Internet):
         self.AddStatus("[*] Searching in Breachdirectory.org [*]")
         querystring = {"func": "auto", "term": f"{self.GetSearchKey}"}
         res = get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring)
+        self.AddStatus('[-] Search Result received [-]')
         self.__AutoJsResponse = loads(res.text) # ? internet.json.loads
         self.__UpdateKeyCounters()
         

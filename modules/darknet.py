@@ -11,6 +11,8 @@ import socket
 from os import system
 from sys import platform
 from time import sleep
+from threading import Thread 
+
 
 
 """
@@ -36,16 +38,27 @@ class DarkNet(Internet):
         socks.set_default_proxy(socks.SOCKS5, "localhost", 9050)
         socket.socket = socks.socksocket
         self.__CheckTorConnection()
-        self.__GetContent()        
-        self.__Get_EVENTVALIDATION()
-        self.__Get_VIEWSTATE()
-        self.__Get_VIEWSTATEGENERATOR()
-        self.__GetCookies()
+        self.__GetContent()
 
-    @property
-    def __DarkInputValidate(self):
-        return self.GetSearchType == 'Email' or self.GetSearchType == 'Username'
-    
+
+    def __CreateThreads(self):
+        self.__GetEventThread = Thread(target=self.__Get_EVENTVALIDATION)
+        self.__GetViewStatThread = Thread(target=self.__Get_VIEWSTATE)
+        self.__GetViewGenThread = Thread(target=self.__Get_VIEWSTATEGENERATOR)
+        self.__GetCookieThread = Thread(target=self.__GetCookies)
+        self.__Threads = [self.__GetEventThread, self.__GetViewStatThread, self.__GetViewGenThread, self.__GetCookieThread]
+        
+        
+    def __StartThreads(self):
+        for thread in self.__Threads:
+            thread.start()
+        
+        
+    def __JoinThreads(self):
+        for thread in self.__Threads:
+            thread.join()
+
+
     # It is necessary for DNS resolution of Onion websites
     def GetAddrInfo(*args):
         return [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (args[0], args[1]))]
@@ -62,7 +75,7 @@ class DarkNet(Internet):
             ]
         for URL in URLs:
             try:
-                self.AddStatus('[-] Requestion A Dark net website[-]')
+                self.AddStatus('[-] Requesting .onion site [-]')
                 get(URL)
                 break
             except:
@@ -72,7 +85,7 @@ class DarkNet(Internet):
                 if platform == 'linux' or platform == 'Linux':
                     try:
                         print('starting tor will stop this program ')
-                        system('tor &')
+                        system('tor 2>/dev/null 2>&1')
                         sleep(2)
                     except:
                         try:
@@ -84,7 +97,6 @@ class DarkNet(Internet):
                 else: 
                     #? Windows or Mac
                     #! Show Error window "please, start tor manually  before using the program"
-
                     pass
     
     
@@ -128,6 +140,9 @@ class DarkNet(Internet):
         
         
     def Search(self):
+        self.__CreateThreads()
+        self.__StartThreads()
+        self.__JoinThreads()
         self.AddStatus('[*] Start Searching in the dark web [*]')
         LeaksHeaders = {
             'Host': 'leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion',

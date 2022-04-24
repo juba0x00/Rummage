@@ -28,13 +28,14 @@ class Search():
         self.DarkFinder = DarkNet()
         
         
-        t1 = threading.Thread(target=self.ScatterFinder.Search())
-        t2 = threading.Thread(target=self.BreachDirFinder.Search())
-        t3 = threading.Thread(target=self.DarkFinder.Search())
+        t1 = threading.Thread(target=self.ScatterFinder.Search)
+        t2 = threading.Thread(target=self.BreachDirFinder.Search)
+        t3 = threading.Thread(target=self.DarkFinder.Search)
         threads = [t1, t2, t3]
         
         for thread in threads:
             thread.start()
+            
         for thread in threads:
             thread.join()
             
@@ -71,19 +72,3 @@ class Search():
             pass
         
         
-        
-        # ! @Osama 
-        # if SearchType == 'Email':
-            
-        #     self.DarkFinder = DarkNet()
-        #     self.ScatterFinder = ScatterSecrets()
-        #     with con.ThreadPoolExecutor() as execute:
-        #         results = [execute.submit(self.DarkFinder.Search()), execute.submit(self.ScatterFinder.Search())]
-        #         for i in con.as_completed(results):
-        #             print(i.result())
-
-        # elif SearchType == 'Username':
-        #     with con.ThreadPoolExecutor() as execute:
-        #         results = [execute.submit(self.DarkFinder.Search())]
-        #         for i in con.as_completed(results):
-        #             print(i.result()) 
