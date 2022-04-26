@@ -35,7 +35,8 @@ Finder.Search(SearchKey)
 print(SEP)
 
 sources = LeaksFinder.GetSources()
-if len(sources) > 1:
+
+if len(sources) > 3:
     print(MAGENTA + "Sources: \n" + sources + RESET)
 
 print(RED + BOLD + LeaksFinder.GetResult() + RESET)
@@ -47,10 +48,11 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 
 
-# TODO GUI @OMAR
-# TODO Start TOR in windows @RULA 
-# TODO countries code number validation 
-# TODO Handle Full search 
-# ! TODO PROBLEM Visa.db 
+# TODO GUI
+# ! TODO PROBLEM Visa.db  @HAWASH 
+# TODO Remove LeaksFinder @MOSTAFA
+# TODO web file @MOSTAFA
+# TODO Organize the code  @HAWASH 
+# TODO unique all network classes into one class 
 
 

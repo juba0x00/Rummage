@@ -6,6 +6,7 @@
 from modules.internet import Internet
 from requests import session, get
 from bs4 import BeautifulSoup
+from modules.leaksfinder import LeaksFinder 
 import socks
 import socket
 from os import system
@@ -30,7 +31,7 @@ self.
 # ? class name(file_name.class_name)
 class DarkNet(Internet):
     def __init__(self): 
-        self.AddStatus('[-] Setting TOR Proxy [-]')
+        LeaksFinder.AddStatus('[-] Setting TOR Proxy [-]')
         self.session = session() # ? internet.requests.session()
         self.session.proxies["http"] = "socks5h://localhost:9050"
         self.session.proxies["https"] = "socks5h://localhost:9050"
@@ -68,7 +69,7 @@ class DarkNet(Internet):
     socket.getaddrinfo = GetAddrInfo
 
     def __CheckTorConnection(self):
-        self.AddStatus('[-] Checking TOR Connection [-]')
+        LeaksFinder.AddStatus('[-] Checking TOR Connection [-]')
         URLs = [
             'http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', 
             'http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/', 
@@ -77,11 +78,11 @@ class DarkNet(Internet):
             ]
         for URL in URLs:
             try:
-                self.AddStatus('[-] Requesting .onion site [-]')
+                LeaksFinder.AddStatus('[-] Requesting .onion site [-]')
                 get(URL)
                 break
             except:
-                self.AddStatus('[-] Try to start TOR service [-]')
+                LeaksFinder.AddStatus('[-] Try to start TOR service [-]')
 
                 #! Show Error window "Tor is not running"
                 if platform == 'linux' or platform == 'Linux':
@@ -103,15 +104,16 @@ class DarkNet(Internet):
     
     
     def __GetContent(self):
-        self.AddStatus('[-] Establishing TOR Connection [-]')
+        LeaksFinder.AddStatus('[-] Establishing TOR Connection [-]')
         res = get('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass')  # ? internet.requests.get()
-        self.AddStatus('[-] Onion Site Connected [-]')
+        LeaksFinder.AddStatus('[-] Onion Site Connected [-]')
         self.__ResponseHeaders = res.headers
         self.__soup = BeautifulSoup(res.content, 'lxml') 
-        
+        open('dar', 'w').write(str(res.headers))
+
 
     def __GetCookies(self):
-        self.AddStatus('[-] Setting session Cookies [-]')        
+        LeaksFinder.AddStatus('[-] Setting session Cookies [-]')        
         SetCookie = self.__ResponseHeaders['Set-Cookie']
         SetCookie = SetCookie.split()
         
@@ -123,11 +125,11 @@ class DarkNet(Internet):
 
 
     def __Get_EVENTVALIDATION(self):
-        self.AddStatus('[-] Event Validation [-]')        
+        LeaksFinder.AddStatus('[-] Event Validation [-]')        
         # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'})
         # self.__EVENTVALIDATION = tag.attrs['value']
         self.__EVENTVALIDATION = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'}).attrs['value']
-        
+
         
     def __Get_VIEWSTATE(self):        
         # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__VIEWSTATE'})
@@ -145,7 +147,7 @@ class DarkNet(Internet):
         self.__CreateThreads()
         self.__StartThreads()
         self.__JoinThreads()
-        self.AddStatus('[*] Start Searching in the dark web [*]')
+        LeaksFinder.AddStatus('[*] Start Searching in the dark web [*]')
         LeaksHeaders = {
             'Host': 'leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -163,6 +165,7 @@ class DarkNet(Internet):
             'Sec-Fetch-Site': 'same-origin',
             'Sec-Fetch-User': '?1'
         }
+        
         self.session.headers = LeaksHeaders
         InputData = {'__LASTFOCUS':	"", 
                     '__EVENTTARGET':"ctl00$ContentPlaceHolder1$BtnSearch",
@@ -170,8 +173,8 @@ class DarkNet(Internet):
                     '__VIEWSTATE':	self.__VIEWSTATE,
                     '__VIEWSTATEGENERATOR':	self.__VIEWSTATEGENERATOR,
                     '__EVENTVALIDATION':	self.__EVENTVALIDATION,
-                    'ctl00$ContentPlaceHolder1$TxtSearch':	self.GetSearchKey,
-                    'ctl00$ContentPlaceHolder1$SearchType':	self.GetSearchType
+                    'ctl00$ContentPlaceHolder1$TxtSearch':	LeaksFinder.GetSearchKey(),
+                    'ctl00$ContentPlaceHolder1$SearchType':	LeaksFinder.GetSearchType()
                     }
 
         # ? 1 res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) 
@@ -179,20 +182,20 @@ class DarkNet(Internet):
         # ? 3 self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})
         # ? 1+2 soup = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser')
         res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData)
-        self.AddStatus('[-] Search Result received [-]')
+        LeaksFinder.AddStatus('[-] Search Result received [-]')
         soup = BeautifulSoup(res.content, 'html.parser')
         self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})        
         # ? 1+2+3 
         self.__LeaksResult = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData).content, 'html.parser').find('div', {'class': 'ResultPanel'})
         if self.__LeaksResult:
             self.__HandleLeaks()
-            self.AddStatus('[+] Breaches Found in the Dark web [+]')
+            LeaksFinder.AddStatus('[+] Breaches Found in the Dark web [+]')
             
         else:
-            self.AddResult('No Leaks Found In the dark web')
+            LeaksFinder.AddResult('No Leaks Found In the dark web')
 
 
     def __HandleLeaks(self):  
         for span in self.__LeaksResult.find_all('span', {'style':'display:inline-block;color:White;background-color:DarkRed;border-width:2px;border-style:Solid;'}):
-            self.AddResult(span.contents.pop())
-            self.IncreaseRiskLevel()
+            LeaksFinder.AddResult(span.contents.pop())
+            LeaksFinder.IncreaseRiskLevel()

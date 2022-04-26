@@ -7,6 +7,7 @@ from modules.breachdir import BreachDir
 from modules.validateinput import CheckinputType
 from threading import Thread
 from datetime import date 
+import time
 
 
 class Search():
@@ -17,17 +18,25 @@ class Search():
         self.BreachDirFinder = BreachDir()
         self.ScatterFinder = ScatterSecrets()
         self.DarkFinder = DarkNet()
-        
-        
+    
+        start = time.time()
+
+
+
         t1 = Thread(target=self.ScatterFinder.Search)
         t2 = Thread(target=self.BreachDirFinder.Search)
         t3 = Thread(target=self.DarkFinder.Search)
         threads = [t1, t2, t3]
         
         for thread in threads:
+            start = time.time()
             thread.start()
-        for thread in threads:
             thread.join()
+            print(f'Time: {time.time() - start}')
+            
+        # for thread in threads:
+        #     
+            
             
             
     
@@ -47,28 +56,43 @@ class Search():
         elif type(SearchKey) == list:
             for key in SearchKey:
                 self.__SingleSearch(key)
-        
+
 
     def __SingleSearch(self, SearchKey):
+        start = time.time()
+        
         SearchType = CheckinputType(SearchKey)
 
-        if LeaksFinder.GetCountry != 'Israel':
+        if Internet.GetCountry != 'Israel':
             
             LeaksFinder.SetAtrrs(SearchKey, SearchType)
+            start = time.time()
+
             self.DatabaseFinder = Database()
+            print('create db object -> Time: {} - {}'.format(time.time(), start))
+            start = time.time()
             
             if self.DatabaseFinder.HistorySearch():
+                print(f'history db object -> Time: {time.time() - start}')
+                
                 if not LeaksFinder.TrustHistory():
+                    start = time.time()
+                    print('before external search')
                     self.__ExternalSearch(SearchType)
+                    print(f'external object -> Time: {time.time() - start}')
                     
             else:
+                print('here')
                 self.__ExternalSearch(SearchType)
         else:
             #ISRAEL
             pass
+        print(f'search -> Time: {time.time() - start}')
+        
             
             
     def __ExternalSearch(self, SearchType):
+        print(f'Search type -> {SearchType}')
         if SearchType == 'Email':
             self.__EmailSearch()
         elif SearchType == 'Username':
@@ -78,12 +102,13 @@ class Search():
             self.DatabaseFinder.Search('{}{}'.format(LeaksFinder.FileSystemStructure(), Internet.GetCountry()))
             
         elif SearchType == 'Visa':
+            print(LeaksFinder.FileSystemStructure())
             self.DatabaseFinder.Search('{}Visa'.format(LeaksFinder.FileSystemStructure()))
         else:
             #! show error window 
             pass
         self.DatabaseFinder.InsertRecord([
-                                self.DatabaseFinder.GetSearchKey,
+                                LeaksFinder.GetSearchKey(),
                                 LeaksFinder.GetResult(),
                                 LeaksFinder.GetSources(),
                                 date.today(), 

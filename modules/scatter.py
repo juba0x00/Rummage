@@ -1,6 +1,7 @@
 from modules.internet import Internet
 from requests import session
 from bs4 import BeautifulSoup
+from modules.leaksfinder import LeaksFinder
 
 #!status
 """
@@ -38,15 +39,17 @@ class ScatterSecrets(Internet):
 
 
     def __GetContent(self):
-        self.AddStatus("[-] Establishing connection with Scatter Secrets.")
+        LeaksFinder.AddStatus("[-] Establishing connection with Scatter Secrets.")
         res = self.Session.get('https://scatteredsecrets.com/')  
         self.__ScatterSoup = BeautifulSoup(res.content, 'html.parser')
         self.__ResponseHeaders = res.headers
         
+        
     def __GetCookie(self):
-        self.AddStatus("[-] Create a new ScatterSecrets session. [-]")
+        LeaksFinder.AddStatus("[-] Create a new ScatterSecrets session. [-]")
         self.__SessionVal = self.__ResponseHeaders['set-cookie'].split(';')[0].split('=')[1]
         self.Session.cookies.set('session', self.__SessionVal)
+        
         
     def __GetCSRF(self):
         # tag = self.__ScatterSoup.find('input', {'type': 'hidden', 'name': 'csrf_token'})
@@ -55,7 +58,7 @@ class ScatterSecrets(Internet):
 
         
     def Search(self):
-        self.AddStatus('[*] Start searching in ScaterSecrets. [*]')
+        LeaksFinder.AddStatus('[*] Start searching in ScaterSecrets. [*]')
         InputHeaders = {
             "Host": "scatteredsecrets.com",
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
@@ -74,27 +77,27 @@ class ScatterSecrets(Internet):
             "Te": "trailers"
         }
 
-        Parameters = {"identifier" : self.GetSearchKey,
+        Parameters = {"identifier" : LeaksFinder.GetSearchKey(),
                     "csrf_token" : self.__CSRFToken,
                     "action" : "search"
                     }
         content = self.Session.post('https://scatteredsecrets.com/', headers=InputHeaders, data=Parameters, allow_redirects=True).content
-        self.AddStatus('[-] Search Result received [-]')
+        LeaksFinder.AddStatus('[-] Search Result received [-]')
         soup = BeautifulSoup(content, 'html.parser')
-        self.AddStatus('[-] ScatterSecrets reponded [-]')
+        LeaksFinder.AddStatus('[-] ScatterSecrets reponded [-]')
         self.__Result = soup.find('small', {'class': 'alerter'}).contents
         self.__Result = self.__Result.pop()
         if self.__CheckResult():
-            self.AddStatus('[+] BREACHES Found in ScatterSecrets [+]')
-            self.AddResult(self.__Result)
+            LeaksFinder.AddStatus('[+] BREACHES Found in ScatterSecrets [+]')
+            LeaksFinder.AddResult(self.__Result)
         else:
-            self.AddStatus("[+] You're SAFE :) [+]")
-            self.AddResult('No Breaches found in ScatterSecrets')
+            LeaksFinder.AddStatus("[+] You're SAFE :) [+]")
+            LeaksFinder.AddResult('No Breaches found in ScatterSecrets')
             
         
 
     def __CheckResult(self):
-        if f"Bad news. Leaked passwords found for {self.GetSearchKey}." == self.__Result:
+        if "Bad news. Leaked passwords found for {}.".format(LeaksFinder.GetSearchKey()) == self.__Result:
             return True 
         else:
             return False

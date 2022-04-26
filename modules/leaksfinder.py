@@ -1,10 +1,8 @@
-from datetime import date ,timedelta,datetime
 from bs4 import BeautifulSoup
 from requests import get 
 from sys import platform 
-from os import getcwd
-from datetime import timedelta
-
+from os import getcwd, stat
+from datetime import date
 RED = '\033[93m'
 YELLOW = '\033[33m'
 UNDERLINE = '\033[4m'
@@ -20,10 +18,9 @@ class LeaksFinder():
     __SearchType = ""
     __Status = ""
     __Result = ""
-    __Source = ""
+    __Source = " "
     __RiskLevel = 0
     __LastSearch = date.today()
-    __Today = date.today()
     __CWD = getcwd()
     
     
@@ -39,19 +36,23 @@ class LeaksFinder():
     def IncreaseRiskLevel():
         LeaksFinder.__RiskLevel += 1
         
-    
+        
+    @staticmethod
     def GetRiskLevel():
         return LeaksFinder.__RiskLevel
     
     
-    def SetLastSearch(self, NewValue):
-        self.__LastSearch = NewValue
+    @staticmethod
+    def SetLastSearch(NewValue):
+        LeaksFinder.__LastSearch = NewValue
     
     
-    def SetRiskLevel(self, NewValue):
-        self.__RiskLevel = NewValue
+    @staticmethod
+    def SetRiskLevel(NewValue):
+        LeaksFinder.__RiskLevel = NewValue
         
         
+    @staticmethod
     def GetLastSearch():
         return LeaksFinder.__LastSearch
     
@@ -61,6 +62,7 @@ class LeaksFinder():
         LeaksFinder.__Source += NewSource + '\n' 
     
     
+    @staticmethod
     def GetSources():
         return LeaksFinder.__Source
     
@@ -87,37 +89,22 @@ class LeaksFinder():
         LeaksFinder.__Status += NewStatus + '\n'
         
     
-    
+    @staticmethod
     def GetStatus():
         return LeaksFinder.__Status
     
-    @property
-    def GetSearchKey(self):
-        return self.__SearchKey
     
-    @property 
-    def GetSearchType(self):
-        return self.__SearchType
-
-    @property
-    def CheckConnection(self):
-        URLs = ['http://google.com', ]
-        for URL in URLs:
-            if get(URL):
-                return True
-        return False
+    @staticmethod
+    def GetSearchKey():
+        return LeaksFinder.__SearchKey
     
     
-    def GetCountry():
-        return get('https://am.i.mullvad.net/country').text.replace('\n', '')
+    @staticmethod 
+    def GetSearchType():
+        return LeaksFinder.__SearchType
     
     
-    def TrustHistory():
-        d1 = datetime.strptime(str(LeaksFinder.GetLastSearch()), "%Y-%m-%d")
-        d2 = datetime.strptime(str(LeaksFinder.__Today), "%Y-%m-%d")
-        return abs((d2 - d1).days) < 30
-    
-    
+    @staticmethod
     def FileSystemStructure():
         if platform == 'Linux' or platform == 'linux' or platform == 'Darwin':
             return f'{LeaksFinder.__CWD}/databases/'

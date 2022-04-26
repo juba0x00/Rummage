@@ -1,5 +1,6 @@
 # from internet import Internet
 from modules.internet import Internet
+from modules.leaksfinder import LeaksFinder 
 from requests import get
 from json import loads, dump 
 # Breach Directory Attributes : 
@@ -22,7 +23,7 @@ class BreachDir(Internet):
         
     @property
     def __GetValidKey(self):    
-        self.AddStatus('[-] Getting Valid API Key [-]')   
+        LeaksFinder.AddStatus('[-] Getting Valid API Key [-]')   
         count = 100 
         MinKey = ''
         
@@ -54,10 +55,10 @@ class BreachDir(Internet):
 
 
     def Search(self):
-        self.AddStatus("[*] Searching in Breachdirectory.org [*]")
-        querystring = {"func": "auto", "term": f"{self.GetSearchKey}"}
+        LeaksFinder.AddStatus("[*] Searching in Breachdirectory.org [*]")
+        querystring = {"func": "auto", "term": LeaksFinder.GetSearchKey()}
         res = get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring)
-        self.AddStatus('[-] Search Result received [-]')
+        LeaksFinder.AddStatus('[-] Search Result received [-]')
         self.__AutoJsResponse = loads(res.text) # ? internet.json.loads
         self.__UpdateKeyCounters()
         
@@ -68,26 +69,26 @@ class BreachDir(Internet):
         else:
             if self.__AutoJsResponse["success"]:
                 self.__AutoJsResponse = self.__AutoJsResponse["result"] 
-                self.AddStatus('[+] Passwords Found in Breach Directory [+]')
-                self.AddResult("Passwords Found in Breach Directory:\n ")
+                LeaksFinder.AddStatus('[+] Passwords Found in Breach Directory [+]')
+                LeaksFinder.AddResult("Passwords Found in Breach Directory:\n ")
                 for password in self.__GetPasswords:
-                    self.AddResult(password)
-                    self.IncreaseRiskLevel()
+                    LeaksFinder.AddResult(password)
+                    LeaksFinder.IncreaseRiskLevel()
                 
                 for source in self.__GetSources:
-                    self.AddSource(source)
+                    LeaksFinder.AddSource(source)
                 
             
             else:
-                self.AddStatus('[+] No Breaches found in BreachDirectory [+]')
-                self.AddResult("No Breaches found in BreachDirectory")
+                LeaksFinder.AddStatus('[+] No Breaches found in BreachDirectory [+]')
+                LeaksFinder.AddResult("No Breaches found in BreachDirectory")
             
         
         
     @property
     def __GetSources(self):
         
-        querystring = {"func": "sources", "term": f"{self.GetSearchKey}"}
+        querystring = {"func": "sources", "term": LeaksFinder.GetSearchKey()}
         self.__UpdateKeyCounters()
         return loads(get("https://breachdirectory.p.rapidapi.com/", headers=self.__BreachDirHeaders, params=querystring).text.replace("'", '"'))['sources'] # ? internet.json.loads()
     

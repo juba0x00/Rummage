@@ -9,10 +9,10 @@
 # class attributes:
 # Result
 # Status
-from modules.leaksfinder import LeaksFinder
 from requests import get
 
-class Internet(LeaksFinder):
+
+class Internet():
     
     @property
     def CheckConnection(self):
@@ -24,8 +24,7 @@ class Internet(LeaksFinder):
                 return True
         return False
     
-    
+    @staticmethod
     def GetCountry():
         return get('https://am.i.mullvad.net/country').text.replace('\n', '')
-        
-        
+    
