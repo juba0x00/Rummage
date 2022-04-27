@@ -109,7 +109,6 @@ class DarkNet(Internet):
         LeaksFinder.AddStatus('[-] Onion Site Connected [-]')
         self.__ResponseHeaders = res.headers
         self.__soup = BeautifulSoup(res.content, 'lxml') 
-        open('dar', 'w').write(str(res.headers))
 
 
     def __GetCookies(self):

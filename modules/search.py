@@ -75,7 +75,7 @@ class Search():
             if self.DatabaseFinder.HistorySearch():
                 print(f'history db object -> Time: {time.time() - start}')
                 
-                if not LeaksFinder.TrustHistory():
+                if not Database.TrustHistory():
                     start = time.time()
                     print('before external search')
                     self.__ExternalSearch(SearchType)
