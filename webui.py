@@ -17,9 +17,9 @@ GREEN = '\033[32m'
 BOLD = '\033[1m'
 
 
-# TorThread = Thread(target=system('tor >/dev/null 2>/dev/null'))  # ! HANDLE ME
-# TorThread.start()
-# TorThread.join()
+TorThread = Thread(target=system('tor >/dev/null 2>/dev/null'))  # ! HANDLE ME
+TorThread.start()
+
 if len(argv) == 2:
     SearchKey = argv[1]
 
@@ -31,7 +31,4 @@ if len(argv) == 2:
     print(LeaksFinder.GetResult())
     print(sources)
 else: 
-    print('fk u')
-# buffer = open('buffer', 'w')
-# buffer.write(str(LeaksFinder.GetResult()))
-# buffer.close()
+    pass

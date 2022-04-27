@@ -20,8 +20,8 @@ def StartTor():
     system('tor > test 2>&1')
     
     
-TorThread = Thread(target=StartTor)
-TorThread.start()
+# TorThread = Thread(target=StartTor)
+# TorThread.start()
 
 
 print( RED + BOLD + figlet_format('Rummage'))
@@ -46,12 +46,12 @@ print(BOLD + YELLOW + 'Risk Level -> {} {}'.format(LeaksFinder.GetRiskLevel(), R
 
 print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
+# del TorThread
 
 
 
 # TODO GUI
 # ! TODO PROBLEM Visa.db  @HAWASH 
 # TODO Organize the code  @HAWASH 
-# TODO unique all network classes into one class 
 
 
