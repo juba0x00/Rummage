@@ -63,11 +63,11 @@ class Database():
         
     @staticmethod
     def TrustHistory():
-        d1 = datetime.strptime(str( LeaksFinder.GetLastSearch() ), "%Y-%m-%d")
-        d2 = datetime.strptime(str( datetime.today() ), "%Y-%m-%d")
+        # d1 = datetime.strptime(str( LeaksFinder.GetLastSearch() ), "%Y-%m-%d")
+        # d2 = datetime.strptime(str( datetime.today() ), "%Y-%m-%d")
 
 
-        return  abs((d2 - d1).days) < 30
+        return  True #abs((d2 - d1).days) < 30
 
 
 # |SearchKey|Result|Sources|LastSearch|RiskLevel
