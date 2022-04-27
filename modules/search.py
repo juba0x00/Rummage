@@ -39,6 +39,11 @@ class Search():
             
     
     def __UsernameSearch(self):
+
+        self.BreachDirFinder = BreachDir()
+        self.DarkFinder = DarkNet()
+    
+
         t1 = Thread(target=self.BreachDirFinder.Search)
         t2 = Thread(target=self.DarkFinder.Search)
         t2.start()

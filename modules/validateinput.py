@@ -13,11 +13,10 @@ def CheckinputType(data):
         return "Username"
 
 def IsEmail(email_address):
-    return True if '@' in email_address and '.com' in email_address else False
+    return  '@' in email_address and email_address.endswith('.com') 
 
 def IsVisa(Visa):
-    if len(Visa) == 11 and Visa[5] == '-':
-        return True
+    return len(Visa) == 11 and Visa[5] == '-'
     
 countries = {
     "Egypt": [2, 11, 13],
