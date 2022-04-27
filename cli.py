@@ -50,8 +50,6 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 # TODO GUI
 # ! TODO PROBLEM Visa.db  @HAWASH 
-# TODO Remove LeaksFinder @MOSTAFA
-# TODO web file @MOSTAFA
 # TODO Organize the code  @HAWASH 
 # TODO unique all network classes into one class 
 

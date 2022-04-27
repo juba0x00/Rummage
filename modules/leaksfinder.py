@@ -13,6 +13,11 @@ BOLD = '\033[1m'
 HEADER = '\033[95m'
 
 
+
+
+
+
+
 class LeaksFinder():
     __SearchKey = ""
     __SearchType = ""
