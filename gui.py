@@ -1,11 +1,20 @@
+# #!/usr/bin/env python3
 import tkinter as tk
 import tkinter.font as tkFont
+# from modules.search import Search
+# from modules.leaksfinder import LeaksFinder
+# # countries: Egypt, Cameroon, Algeria,  Austria,  Bahrain,  Belgium, Canada,  China, Cameroon, ShittyIsrael
+# from modules.validateinput import CheckinputType
+# import datetime
+# from threading import Thread
+# from os import system
+
 
 class App(tk.Tk):
     
     def __configure_root_window(self):
         self.title("Rummage")
-        #setting window size
+        self.config(background='#202124')
         width=1174
         height=731
         screenwidth = self.winfo_screenwidth()
@@ -17,11 +26,10 @@ class App(tk.Tk):
     def __configure_search_btn(self):        
         self.SearchBtn=tk.Button()
         self.SearchBtn.config(
-                                activebackground='#331717', 
-                                activeforeground='#924a4a', 
+                                activebackground='#0061dc', 
                                 anchor='center', 
-                                bg='#204c62',
-                                fg='#f2f0ed', 
+                                bg='#0a56b9',
+                                fg='white', 
                                 justify='center', 
                                 text='Search', 
                                 font=self.font,
@@ -29,51 +37,98 @@ class App(tk.Tk):
                             )
         self.SearchBtn.place(x=520,y=110,width=130,height=30)
 
+    def __configure_switch_mode_btn(self):
+        self.AnotherMode = tk.StringVar()
+        self.AnotherMode.set('Full Search')
+        self.SwitchModeBtn = tk.Button()
+        self.SwitchModeBtn.config(
+                                activebackground='#0061dc', 
+                                anchor='center', 
+                                bg='#0a56b9',
+                                fg='white', 
+                                justify='center', 
+                                font=self.font,
+                                textvariable=self.AnotherMode,
+                                command=self.switch_mode
+                            )
+        self.SwitchModeBtn.place(x=520,y=170,width=130,height=30)
         
+    def clicked(self, event):
+        print(self.ClickedWidget)
+        self.ClickedWidget.delete(0, tk.END)
         
     def __configure_single_search_entry(self):
-        
         self.SingleSearchEntry = tk.Entry()
         self.SingleSearchEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
-                                        fg='#cfcac2', 
-                                        justify='center', 
-                                        text='Enter a Search Key',
-                                        relief='groove'
+                                        bg='#303134',
+                                        fg='red', 
+                                        justify='center',
                                     )
-
+        self.SingleSearchEntry.insert(0, 'Enter a Search Key')
+        self.ClickedWidget = self.SingleSearchEntry
+        self.SingleSearchEntry.bind('<Button-1>', self.clicked)
         self.SingleSearchEntry.place(x=380,y=20,width=411,height=31)
         
-    def __configureureEmailEntry(self):
+        
+    def __configure_email_entry(self):
         self.EmailEntry = tk.Entry()
         self.EmailEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
-                                        fg='#cfcac2', 
+                                        bg='#303134',
+                                        fg='red', 
                                         justify='center', 
-                                        text='Enter a Search Key',
-                                        relief='groove'
+                                        
                                     )
+        
+        
         
     def __configure_phone_entry(self):
         self.PhoneEntry = tk.Entry()
         self.PhoneEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
-                                        fg='#cfcac2', 
-                                        justify='center', 
-                                        text='Enter a Search Key',
-                                        relief='groove'
+                                        bg='#303134',
+                                        fg='red', 
+                                        justify='center'
                                     )
 
+
+    def __configure_visa_entry(self):
+        self.VisaEntry = tk.Entry()
+        self.VisaEntry.config(  
+                                        borderwidth='1px',
+                                        font=self.font, 
+                                        bg='#303134',
+                                        fg='red'
+                                    )
+
+        
+        
+    def __configure_username_entry(self):
+        self.UsernameEntry = tk.Entry()
+        self.UsernameEntry.config(  
+                                        borderwidth='1px',
+                                        font=self.font, 
+                                        bg='#303134',
+                                        fg='red', 
+                                        justify='center'                                        
+                                    )
 
 
     def __show_full_search_widgets(self):
         self.EmailEntry.place(x=10,y=110,width=390,height=30)
         self.PhoneEntry.place(x=10,y=170,width=390,height=30)
+        self.VisaEntry.place(x=770,y=110,width=390,height=30)
+        self.UsernameEntry.place(x=770,y=170,width=390,height=30)
         
         
+    def __remove_full_search_widgets(self):
+        for Widget in self.FullSearchWidgets:
+            Widget.destroy()
+            
     def __configure_status_output(self):
         self.StatusOutput=tk.Text()
         self.StatusOutput.config(
@@ -97,7 +152,7 @@ class App(tk.Tk):
         )
         self.ResultOutput.place(x=590,y=270,width=576,height=452)
 
-
+    
         
         
     def append_status(self):
@@ -108,49 +163,35 @@ class App(tk.Tk):
 
     def __init__(self):
         super().__init__()
-
         self.font = tkFont.Font(family='Times',size=16)
-        
         self.__configure_root_window()
         self.__configure_search_btn()
         self.__configure_single_search_entry()
         self.__configure_status_output()
         self.__configure_result_output()
+        self.__configure_switch_mode_btn()
 
-        GLineEdit_726=tk.Entry(self)
-        GLineEdit_726["borderwidth"] = "1px"
-        ft = tkFont.Font(family='Times',size=10)
-        GLineEdit_726["font"] = ft
-        GLineEdit_726["fg"] = "#cfcac2"
-        GLineEdit_726["justify"] = "center"
-        GLineEdit_726["text"] = "Entry"
-        GLineEdit_726.place(x=770,y=110,width=390,height=30)
-
-        GLineEdit_103=tk.Entry(self)
-        GLineEdit_103["borderwidth"] = "1px"
-        ft = tkFont.Font(family='Times',size=10)
-        GLineEdit_103["font"] = ft
-        GLineEdit_103["fg"] = "#cfcac2"
-        GLineEdit_103["justify"] = "center"
-        GLineEdit_103["text"] = "Entry"
-        GLineEdit_103.place(x=770,y=170,width=390,height=30)
-
-        GButton_927=tk.Button(self)
-        GButton_927["bg"] = "#0e1011"
-        ft = tkFont.Font(family='Times',size=10)
-        GButton_927["font"] = ft
-        GButton_927["fg"] = "#f2f0ed"
-        GButton_927["justify"] = "center"
-        GButton_927["text"] = "Button"
-        GButton_927.place(x=520,y=170,width=130,height=30)
-        GButton_927["command"] = self.GButton_927_command
 
     def SearchBtn_command(self):
-        print("command")
+        pass
 
 
-    def GButton_927_command(self):
-        print("command")
+    def switch_mode(self):
+        
+        if self.AnotherMode.get() == 'Full Search':
+            self.AnotherMode.set('Single Search')
+            self.SingleSearchEntry.destroy()
+            self.__configure_email_entry()
+            self.__configure_phone_entry()
+            self.__configure_visa_entry()
+            self.__configure_username_entry()
+            self.__show_full_search_widgets()
+            self.FullSearchWidgets = [self.EmailEntry, self.PhoneEntry, self.VisaEntry, self.UsernameEntry]
+            
+        elif self.AnotherMode.get() == 'Single Search':
+            self.AnotherMode.set('Full Search')
+            self.__remove_full_search_widgets()
+            self.__configure_single_search_entry()
 
 app = App()
 app.mainloop()
