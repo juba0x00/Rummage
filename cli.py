@@ -7,15 +7,7 @@ import datetime
 from threading import Thread
 from os import system
 from pyfiglet import figlet_format 
-# from subprocess import Popen, PIPE
-
-# process = Popen('tor', stdout=PIPE, stderr=PIPE)
-
-# stdout, stderr = process.communicate()
-
-
 SEP = "\033[95m___________________________________________\033[0m"
-
 RED = '\033[31m'
 RESET = '\033[0m'
 MAGENTA = '\033[35m'
@@ -23,6 +15,15 @@ YELLOW = '\033[33m'
 UNDERLINE = '\033[4m'
 GREEN = '\033[32m'
 BOLD = '\033[1m'
+
+def StartTor():
+    system('tor > test 2>&1')
+    
+    
+TorThread = Thread(target=StartTor)
+TorThread.start()
+
+
 print( RED + BOLD + figlet_format('Rummage'))
 
 SearchKey = input(GREEN + BOLD + 'Enter Your Search Key: ' + RESET)

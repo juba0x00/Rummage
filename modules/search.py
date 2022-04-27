@@ -19,7 +19,6 @@ class Search():
         self.ScatterFinder = ScatterSecrets()
         self.DarkFinder = DarkNet()
     
-        start = time.time()
 
 
 
@@ -29,13 +28,12 @@ class Search():
         threads = [t1, t2, t3]
         
         for thread in threads:
-            start = time.time()
             thread.start()
-            thread.join()
-            print(f'Time: {time.time() - start}')
             
-        # for thread in threads:
-        #     
+        threads.reverse()
+        for thread in threads:
+            thread.join()
+            
             
             
             
