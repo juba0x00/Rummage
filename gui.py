@@ -1,41 +1,54 @@
 # #!/usr/bin/env python3
 import tkinter as tk
 import tkinter.font as tkFont
-# from modules.search import Search
-# from modules.leaksfinder import LeaksFinder
-# # countries: Egypt, Cameroon, Algeria,  Austria,  Bahrain,  Belgium, Canada,  China, Cameroon, ShittyIsrael
-# from modules.validateinput import CheckinputType
-# import datetime
-# from threading import Thread
-# from os import system
+from modules.leaksfinder import LeaksFinder 
+from modules.search import Search
+from threading import Thread 
+# countries: Egypt, Cameroon, Algeria,  Austria,  Bahrain,  Belgium, Canada,  China, Cameroon, ShittyIsrael
 
+RootBG = '#202124'
+class Gui(tk.Tk):
 
-class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.Finder = Search()
+        self.font = tkFont.Font(family='Times bold',size=16)
+        self.__configure_root_window()
+        self.__configure_search_btn()
+        self.__configure_single_search_entry()
+        self.__configure_status_output()
+        self.__configure_result_output()
+        self.__configure_switch_mode_btn()
+        self.__LastStatus = ''
     
+        
     def __configure_root_window(self):
         self.title("Rummage")
-        self.config(background='#202124')
+        self.config(background=RootBG)
         width=1174
         height=731
         screenwidth = self.winfo_screenwidth()
         screenheight = self.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         self.geometry(alignstr)
-        self.resizable(width=False, height=False)
-        
+        # self.resizable(width=False, height=False)
+        self.bind('<Return>', self.start_search)
+
+
     def __configure_search_btn(self):        
         self.SearchBtn=tk.Button()
         self.SearchBtn.config(
                                 activebackground='#0061dc', 
                                 anchor='center', 
-                                bg='#0a56b9',
+                                bg='#0a56ba',
                                 fg='white', 
                                 justify='center', 
                                 text='Search', 
                                 font=self.font,
-                                command=self.SearchBtn_command
+                                command=self.start_search
                             )
         self.SearchBtn.place(x=520,y=110,width=130,height=30)
+
 
     def __configure_switch_mode_btn(self):
         self.AnotherMode = tk.StringVar()
@@ -52,68 +65,85 @@ class App(tk.Tk):
                                 command=self.switch_mode
                             )
         self.SwitchModeBtn.place(x=520,y=170,width=130,height=30)
-        
+
+
     def clicked(self, event):
-        print(self.ClickedWidget)
         self.ClickedWidget.delete(0, tk.END)
-        
+
+
     def __configure_single_search_entry(self):
         self.SingleSearchEntry = tk.Entry()
         self.SingleSearchEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
                                         bg='#303134',
-                                        fg='red', 
+                                        fg='white', 
                                         justify='center',
                                     )
         self.SingleSearchEntry.insert(0, 'Enter a Search Key')
         self.ClickedWidget = self.SingleSearchEntry
         self.SingleSearchEntry.bind('<Button-1>', self.clicked)
         self.SingleSearchEntry.place(x=380,y=20,width=411,height=31)
-        
-        
+
+
     def __configure_email_entry(self):
+        self.EmailLabel = tk.Label(text='Email: ', 
+                                    font=self.font,
+                                    background=RootBG)
+        self.EmailLabel.place(x=10,y=87)
         self.EmailEntry = tk.Entry()
         self.EmailEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
                                         bg='#303134',
-                                        fg='red', 
+                                        fg='white', 
                                         justify='center', 
                                         
                                     )
-        
-        
-        
+
+
     def __configure_phone_entry(self):
+        self.PhoneLabel = tk.Label(text='Phone Number: ', 
+                                    font=self.font,
+                                    background=RootBG)
+        self.PhoneLabel.place(x=10,y=147)
         self.PhoneEntry = tk.Entry()
         self.PhoneEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
                                         bg='#303134',
-                                        fg='red', 
+                                        fg='white',
                                         justify='center'
                                     )
 
 
     def __configure_visa_entry(self):
+        self.VisaLabel = tk.Label(text='Visa(first 5 number-last 5): *****-*****', 
+                                    font=self.font,
+                                    background=RootBG)
+        self.VisaLabel.place(x=770,y=87)
         self.VisaEntry = tk.Entry()
         self.VisaEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
                                         bg='#303134',
-                                        fg='red'
+                                        fg='white',
+                                        justify='center'
+                                        
                                     )
 
-        
-        
+
     def __configure_username_entry(self):
+        self.UsernameLabel = tk.Label(text='Username: ', 
+                                    font=self.font,
+                                    background=RootBG)
+        self.UsernameLabel.place(x=770,y=147)
         self.UsernameEntry = tk.Entry()
         self.UsernameEntry.config(  
                                         borderwidth='1px',
                                         font=self.font, 
                                         bg='#303134',
-                                        fg='red', 
+                                        fg='white', 
                                         justify='center'                                        
                                     )
 
@@ -123,62 +153,86 @@ class App(tk.Tk):
         self.PhoneEntry.place(x=10,y=170,width=390,height=30)
         self.VisaEntry.place(x=770,y=110,width=390,height=30)
         self.UsernameEntry.place(x=770,y=170,width=390,height=30)
-        
-        
+
+
     def __remove_full_search_widgets(self):
         for Widget in self.FullSearchWidgets:
             Widget.destroy()
-            
-    def __configure_status_output(self):
-        self.StatusOutput=tk.Text()
-        self.StatusOutput.config(
-            bg='red', 
-            font=self.font, 
-            fg='black',
-            state='disabled'
-        )
-        self.StatusOutput.config()
-        self.StatusOutput.place(x=10,y=270,width=573,height=453)
-        
-        
-    def __configure_result_output(self):
-        self.ResultOutput=tk.Text()
-        self.ResultOutput.config(
 
-            bg='red', 
+
+    def __check_status(self):
+        while True:
+            if self.__LastStatus != LeaksFinder.GetStatus():
+                self.StatusText.insert(tk.END, (LeaksFinder.GetStatus()))
+                self.__LastStatus = LeaksFinder.GetStatus()
+
+    def __configure_text_output(self):
+        self.StatusText = tk.Text(
+                                    self.StatusOutput,
+                                    font=self.font,
+                                    bg='#303134',
+                                    fg='white'
+                                )
+        self.StatusText.grid(row=0, column=1)
+        
+        self.StatusScroll = tk.Scrollbar(self.StatusOutput, command=self.StatusText.yview, background=RootBG, troughcolor=RootBG, activebackground='#e1e1e1')
+        self.StatusText.config(yscrollcommand=self.StatusScroll.set)
+        self.StatusScroll.grid(row=0, column=0, sticky=tk.NSEW)
+        # self.StatusText.config(state='disabled')
+        
+    
+
+
+
+    def __configure_status_output(self):
+        self.status = tk.StringVar(self)
+        self.StatusOutput = tk.Label()
+        self.StatusOutput.config(
+            bg='#303134', 
             font=self.font, 
-            fg='black',
-            state='disabled'
+            fg='white',
+            textvariable=self.status, 
+            anchor='n'
+        )
+        self.StatusOutput.place(x=10,y=270,width=573,height=453)
+        self.__configure_text_output()
+        
+        self.CheckStatusThread = Thread(target=lambda: self.__check_status())
+
+
+
+
+    def __check_output(self):
+        while True:
+            self.output.set(LeaksFinder.GetResult())
+            
+            
+    def __configure_result_output(self):
+        self.output = tk.StringVar()
+        self.ResultOutput=tk.Label()
+        self.CheckOutputThread = Thread(target=lambda: self.__check_output())
+        self.ResultOutput.config(
+            bg='#303134', 
+            font=self.font, 
+            fg='white',
+            textvariable=self.output, 
+            anchor='n'
+            
         )
         self.ResultOutput.place(x=590,y=270,width=576,height=452)
 
-    
+
+
+
+
+    def start_search(self, *event):
+        self.FinderThread = Thread(target= lambda: self.Finder.Search(self.SingleSearchEntry.get()))
+        self.FinderThread.start()
+        self.CheckStatusThread.start()
+        self.CheckOutputThread.start()
+        # self.FinderThread.join()
         
-        
-    def append_status(self):
-        self.StatusOutput.config(state='normal')
-        self.StatusOutput.insert(tk.END) #! add status 
-        self.StatusOutput.config(state='disabled')
-
-
-    def __init__(self):
-        super().__init__()
-        self.font = tkFont.Font(family='Times',size=16)
-        self.__configure_root_window()
-        self.__configure_search_btn()
-        self.__configure_single_search_entry()
-        self.__configure_status_output()
-        self.__configure_result_output()
-        self.__configure_switch_mode_btn()
-
-
-    def SearchBtn_command(self):
-        pass
-
-
-    def switch_mode(self):
-        
-        if self.AnotherMode.get() == 'Full Search':
+    def __switch_to_full_search(self):
             self.AnotherMode.set('Single Search')
             self.SingleSearchEntry.destroy()
             self.__configure_email_entry()
@@ -186,12 +240,33 @@ class App(tk.Tk):
             self.__configure_visa_entry()
             self.__configure_username_entry()
             self.__show_full_search_widgets()
-            self.FullSearchWidgets = [self.EmailEntry, self.PhoneEntry, self.VisaEntry, self.UsernameEntry]
-            
-        elif self.AnotherMode.get() == 'Single Search':
+            self.FullSearchWidgets = [
+                                    self.EmailEntry,
+                                    self.PhoneEntry,
+                                    self.VisaEntry,
+                                    self.UsernameEntry,
+                                    self.EmailLabel,
+                                    self.PhoneLabel,
+                                    self.VisaLabel,
+                                    self.UsernameLabel
+                                    ]
+
+
+    def __switch_to_single_search(self):
             self.AnotherMode.set('Full Search')
             self.__remove_full_search_widgets()
             self.__configure_single_search_entry()
 
-app = App()
-app.mainloop()
+
+    def switch_mode(self):
+    
+        if self.AnotherMode.get() == 'Full Search':
+            self.__switch_to_full_search()
+            
+        elif self.AnotherMode.get() == 'Single Search':
+            self.__switch_to_single_search()
+
+
+
+Gui = Gui()
+Gui.mainloop()

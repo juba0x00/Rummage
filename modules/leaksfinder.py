@@ -1,8 +1,9 @@
-from bs4 import BeautifulSoup
-from requests import get 
 from sys import platform 
-from os import getcwd, stat
+from os import getcwd
 from datetime import date
+from traceback import extract_stack
+
+
 RED = '\033[93m'
 YELLOW = '\033[33m'
 UNDERLINE = '\033[4m'
@@ -11,9 +12,6 @@ GREEN = '\033[32m'
 RESET = '\033[0m'
 BOLD = '\033[1m'
 HEADER = '\033[95m'
-
-
-
 
 
 
@@ -27,8 +25,6 @@ class LeaksFinder():
     __RiskLevel = 0
     __LastSearch = date.today()
     __CWD = getcwd()
-    
-    
     
     
     @staticmethod
@@ -84,15 +80,20 @@ class LeaksFinder():
         
     @staticmethod
     def AddStatus(NewStatus):
-        if str(NewStatus).startswith('[*]'):
-            print(HEADER + '___________________________________________\n' + BOLD + GREEN + NewStatus + RESET)
-        elif str(NewStatus).startswith('[+]'):
-            print(YELLOW + UNDERLINE + NewStatus + RESET)
-        else:
-            print(CYAN + NewStatus  + RESET)
-            
-        LeaksFinder.__Status += NewStatus + '\n'
-        
+        parent = extract_stack()[0]
+        if 'threading.py' in str(parent): # ! cli.py
+            LeaksFinder.__Status = NewStatus + '\n'
+            print(LeaksFinder.__Status)
+
+                    
+        else: # ! gui.py
+            if str(NewStatus).startswith('[*]'):
+                print(HEADER + '___________________________________________\n' + BOLD + GREEN + NewStatus + RESET)
+            elif str(NewStatus).startswith('[+]'):
+                print(YELLOW + UNDERLINE + NewStatus + RESET)
+            else:
+                print(CYAN + NewStatus  + RESET)
+                    
     
     @staticmethod
     def GetStatus():

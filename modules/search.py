@@ -9,7 +9,6 @@ from threading import Thread
 from datetime import date 
 import time
 
-
 class Search():
 
             
@@ -18,14 +17,10 @@ class Search():
         self.BreachDirFinder = BreachDir()
         self.ScatterFinder = ScatterSecrets()
         self.DarkFinder = DarkNet()
-    
-
-
-
         t1 = Thread(target=self.ScatterFinder.Search)
         t2 = Thread(target=self.BreachDirFinder.Search)
-        t3 = Thread(target=self.DarkFinder.Search)
-        threads = [t1, t2, t3]
+        # t3 = Thread(target=self.DarkFinder.Search)
+        threads = [t1, t2]
         
         for thread in threads:
             thread.start()
@@ -73,7 +68,6 @@ class Search():
             self.DatabaseFinder = Database()
             
             if self.DatabaseFinder.HistorySearch():
-                
                 if not Database.TrustHistory():
                     start = time.time()
                     self.__ExternalSearch(SearchType)
@@ -106,5 +100,3 @@ class Search():
                                 LeaksFinder.GetSources(),
                                 date.today(), 
                                 LeaksFinder.GetRiskLevel()])
-        self.DatabaseFinder.HistorySearch()
-        

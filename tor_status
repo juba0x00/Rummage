@@ -1,0 +1,9 @@
+Apr 28 09:54:48.271 [notice] Tor 0.4.2.7 running on Linux with Libevent 2.1.11-stable, OpenSSL 1.1.1f, Zlib 1.2.11, Liblzma 5.2.4, and Libzstd 1.4.4.
+Apr 28 09:54:48.271 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning
+Apr 28 09:54:48.271 [notice] Read configuration file "/etc/tor/torrc".
+Apr 28 09:54:48.272 [notice] Opening Socks listener on 127.0.0.1:9050
+Apr 28 09:54:48.272 [warn] Could not bind to 127.0.0.1:9050: Address already in use. Is Tor already running?
+Apr 28 09:54:48.272 [notice] Opening Control listener on 127.0.0.1:9051
+Apr 28 09:54:48.272 [warn] Could not bind to 127.0.0.1:9051: Address already in use. Is Tor already running?
+Apr 28 09:54:48.272 [warn] Failed to parse/validate config: Failed to bind one of the listener ports.
+Apr 28 09:54:48.272 [err] Reading config failed--see warnings above.

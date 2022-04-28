@@ -88,7 +88,8 @@ class DarkNet(Internet):
                 if platform == 'linux' or platform == 'Linux':
                     try:
                         print('starting tor will stop this program ')
-                        system('tor 2>/dev/null 2>&1')
+                        
+                        # Thread(target=lambda: system('tor 2>/dev/null 2>&1')).start()
                         sleep(2)
                     except:
                         try:
