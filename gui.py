@@ -20,7 +20,7 @@ class Gui(tk.Tk):
         self.__configure_result_output()
         self.__configure_switch_mode_btn()
         self.__LastStatus = ''
-        
+        self.bind('<Return>', self.start_search)
         # test = tk.StringVar(self)
         # message = tk.Message(self)
     
@@ -37,7 +37,7 @@ class Gui(tk.Tk):
         self.resizable(width=False, height=False)
 
 
-    def __configure_search_btn(self):        
+    def __configure_search_btn(self):
         self.SearchBtn=tk.Button()
         self.SearchBtn.config(
                                 activebackground='#0061dc', 
@@ -255,11 +255,13 @@ class Gui(tk.Tk):
     def start_search(self, *event):
         # self.FinderProc = Process(target= lambda: self.Finder.Search(self.SingleSearchEntry.get()))
         # self.FinderProc.start()
+        self.StatusText.delete('1.0', tk.END)
+        self.ResultText.delete('1.0', tk.END)
         self.FinderThread = Thread(target= lambda: self.Finder.Search(self.SingleSearchEntry.get()))
         self.FinderThread.start()
         self.CheckStatusThread.start()
         self.CheckOutputThread.start()
-        # self.FinderThread.join()
+        
         
     def __switch_to_full_search(self):
             self.AnotherMode.set('Single Search')
@@ -296,11 +298,12 @@ class Gui(tk.Tk):
             self.__switch_to_single_search()
     
     
-    def __del__(self):
-        # self.destroy()
-        print('stop now ')
-        del self.Finder
-        del self.FinderThread
+    # def __del__(self):
+        
+    #     # self.destroy()
+    #     # print('stop now ')
+    #     # del self.Finder
+    #     # del self.FinderThread
 
-Gui = Gui()
-Gui.mainloop()
+app = Gui()
+app.mainloop()

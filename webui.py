@@ -3,7 +3,6 @@ from sys import argv
 from modules.search import Search
 from modules.leaksfinder import LeaksFinder
 from modules.validateinput import CheckinputType
-import datetime
 from threading import Thread
 from os import system
 

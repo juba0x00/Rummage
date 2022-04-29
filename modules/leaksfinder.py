@@ -79,11 +79,6 @@ class LeaksFinder():
         return LeaksFinder.__Result
         
         
-    @staticmethod
-    def GetLastResult():
-        if LeaksFinder.__Result.split('\n')[-1] != '':
-            print('|{}|'.format(LeaksFinder.__Result.split('\n')[-1]))
-        return LeaksFinder.__Result.split('\n')[-1]
         
     @staticmethod
     def Done():
@@ -92,13 +87,9 @@ class LeaksFinder():
         
     @staticmethod
     def AddStatus(NewStatus):
-        # parent = extract_stack()[0]
-        # print(parent)
-        # if 'threading.py' in str(parent): # ! cli.py
+
         LeaksFinder.__Status = NewStatus + '\n'
-        #     print(LeaksFinder.__Status)
-        
-        # else: # ! gui.py
+
         if str(NewStatus).startswith('[*]'):
             print(HEADER + '___________________________________________\n' + BOLD + GREEN + NewStatus + RESET)
         elif str(NewStatus).startswith('[+]'):
