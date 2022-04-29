@@ -25,6 +25,7 @@ class LeaksFinder():
     __RiskLevel = 0
     __LastSearch = date.today()
     __CWD = getcwd()
+    done = False
     
     
     @staticmethod
@@ -73,9 +74,20 @@ class LeaksFinder():
         if NewResult not in LeaksFinder.__Result:
             LeaksFinder.__Result += NewResult + '\n'
     
-    
+    @staticmethod
     def GetResult():
         return LeaksFinder.__Result
+        
+        
+    @staticmethod
+    def GetLastResult():
+        if LeaksFinder.__Result.split('\n')[-1] != '':
+            print('|{}|'.format(LeaksFinder.__Result.split('\n')[-1]))
+        return LeaksFinder.__Result.split('\n')[-1]
+        
+    @staticmethod
+    def Done():
+        LeaksFinder.done = True
         
         
     @staticmethod
@@ -83,7 +95,7 @@ class LeaksFinder():
         # parent = extract_stack()[0]
         # print(parent)
         # if 'threading.py' in str(parent): # ! cli.py
-        #     LeaksFinder.__Status = NewStatus + '\n'
+        LeaksFinder.__Status = NewStatus + '\n'
         #     print(LeaksFinder.__Status)
         
         # else: # ! gui.py

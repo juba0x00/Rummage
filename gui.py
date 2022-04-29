@@ -167,10 +167,13 @@ class Gui(tk.Tk):
 
 
     def __check_status(self):
-        while True:
+        while not LeaksFinder.done:
             if self.__LastStatus != LeaksFinder.GetStatus():
+                self.StatusText.config(state='normal')
                 self.StatusText.insert(tk.END, (LeaksFinder.GetStatus()))
                 self.__LastStatus = LeaksFinder.GetStatus()
+                self.StatusText.config(state='disabled')
+                
 
     def __configure_status_text(self):
         self.StatusText = tk.Text(
@@ -182,9 +185,8 @@ class Gui(tk.Tk):
         self.StatusText.grid(row=0, column=1)
         
         self.StatusScroll = tk.Scrollbar(self.StatusOutput, command=self.StatusText.yview, background=RootBG, troughcolor=RootBG, activebackground='#e1e1e1')
-        self.StatusText.config(yscrollcommand=self.StatusScroll.set)
+        self.StatusText.config(yscrollcommand=self.StatusScroll.set, state='disabled')
         self.StatusScroll.grid(row=0, column=0, sticky=tk.NSEW)
-        # self.StatusText.config(state='disabled')
         
     
 
@@ -208,9 +210,13 @@ class Gui(tk.Tk):
     
 
 
-    def __check_output(self):
+    def __check_result(self):
         while True:
-            self.output.set(LeaksFinder.GetResult())
+            if LeaksFinder.done:
+                self.ResultText.config(state='normal')
+                self.ResultText.insert('1.0', LeaksFinder.GetResult())
+                self.ResultText.config(state='disabled')
+                break
             
             
     def __configure_result_text(self):
@@ -223,7 +229,7 @@ class Gui(tk.Tk):
         self.ResultText.grid(row = 0, column = 1)
         
         self.ResultScroll = tk.Scrollbar(self.ResultOutput, command=self.ResultText.yview, background=RootBG, troughcolor=RootBG, activebackground='#e1e1e1')
-        self.ResultText.config(yscrollcommand=self.ResultScroll.set)
+        self.ResultText.config(yscrollcommand=self.ResultScroll.set, state='disabled')
         self.ResultScroll.grid(row=0, column=0, sticky=tk.NSEW)
 
 
@@ -231,7 +237,7 @@ class Gui(tk.Tk):
     def __configure_result_output(self):
         self.output = tk.StringVar()
         self.ResultOutput=tk.Label()
-        self.CheckOutputThread = Thread(target=lambda: self.__check_output())
+        self.CheckOutputThread = Thread(target=lambda: self.__check_result())
         self.ResultOutput.config(
             bg='#303134', 
             font=self.font, 
@@ -292,6 +298,7 @@ class Gui(tk.Tk):
     
     def __del__(self):
         # self.destroy()
+        print('stop now ')
         del self.Finder
         del self.FinderThread
 
