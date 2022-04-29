@@ -80,20 +80,20 @@ class LeaksFinder():
         
     @staticmethod
     def AddStatus(NewStatus):
-        parent = extract_stack()[0]
-        if 'threading.py' in str(parent): # ! cli.py
-            LeaksFinder.__Status = NewStatus + '\n'
-            print(LeaksFinder.__Status)
-
-                    
-        else: # ! gui.py
-            if str(NewStatus).startswith('[*]'):
-                print(HEADER + '___________________________________________\n' + BOLD + GREEN + NewStatus + RESET)
-            elif str(NewStatus).startswith('[+]'):
-                print(YELLOW + UNDERLINE + NewStatus + RESET)
-            else:
-                print(CYAN + NewStatus  + RESET)
-                    
+        # parent = extract_stack()[0]
+        # print(parent)
+        # if 'threading.py' in str(parent): # ! cli.py
+        #     LeaksFinder.__Status = NewStatus + '\n'
+        #     print(LeaksFinder.__Status)
+        
+        # else: # ! gui.py
+        if str(NewStatus).startswith('[*]'):
+            print(HEADER + '___________________________________________\n' + BOLD + GREEN + NewStatus + RESET)
+        elif str(NewStatus).startswith('[+]'):
+            print(YELLOW + UNDERLINE + NewStatus + RESET)
+        else:
+            print(CYAN + NewStatus  + RESET)
+                
     
     @staticmethod
     def GetStatus():

@@ -31,7 +31,6 @@ class ScatterSecrets(Internet):
         self.__CSRFToken = ""
         self.__SessionVal = ""
         self.Session = session() 
-        print('sessions -> {}'.format(self.Session.cookies.get_dict()))
         self.__GetContent()
         self.__GetCookie()
         self.__GetCSRF()

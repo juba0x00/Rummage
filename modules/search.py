@@ -6,7 +6,6 @@ from modules.database import Database
 from modules.breachdir import BreachDir
 from modules.validateinput import CheckinputType
 from threading import Thread
-from datetime import date 
 import time
 
 class Search():
@@ -14,14 +13,13 @@ class Search():
             
             
     def __EmailSearch(self):
-        self.BreachDirFinder = BreachDir()
+        # self.BreachDirFinder = BreachDir()
         self.ScatterFinder = ScatterSecrets()
         self.DarkFinder = DarkNet()
         t1 = Thread(target=self.ScatterFinder.Search)
-        t2 = Thread(target=self.BreachDirFinder.Search)
-        # t3 = Thread(target=self.DarkFinder.Search)
-        threads = [t1, t2]
-        
+        # t2 = Thread(target=self.BreachDirFinder.Search)
+        t3 = Thread(target=self.DarkFinder.Search)
+        threads = [t1, t3] 
         for thread in threads:
             thread.start()
             
@@ -94,9 +92,9 @@ class Search():
         else:
             #! show error window 
             pass
-        self.DatabaseFinder.InsertRecord([
-                                LeaksFinder.GetSearchKey(),
-                                LeaksFinder.GetResult(),
-                                LeaksFinder.GetSources(),
-                                date.today(), 
-                                LeaksFinder.GetRiskLevel()])
+        # self.DatabaseFinder.InsertRecord([
+        #                         LeaksFinder.GetSearchKey(),
+        #                         LeaksFinder.GetResult(),
+        #                         LeaksFinder.GetSources(),
+        #                         date.today(), 
+        #                         LeaksFinder.GetRiskLevel()])

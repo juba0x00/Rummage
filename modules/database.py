@@ -13,7 +13,7 @@ class Database():
         self.__cursor = self.__conn.cursor()
 
     
-    def Search(self, DatabaseName):
+    def Search(self, DatabaseName) :
         
         self.__DBConnect(DatabaseName) 
 

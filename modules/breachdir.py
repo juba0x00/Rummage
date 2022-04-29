@@ -15,6 +15,7 @@ class BreachDir(Internet):
     def __init__(self):
         self.__JsonKeys = loads(str(open('APIkeys.json', 'r').read()))  # ? SurfaceNet.json.loads()
         self.__GetValidKey
+        print(f'vlid -> {self.__ValidKey}')
         self.__BreachDirHeaders = {
             "X-RapidAPI-Host": "breachdirectory.p.rapidapi.com",
             "X-RapidAPI-Key": self.__ValidKey  # ! Get your API key -> https://rapidapi.com/rohan-patra/api/breachdirectory
@@ -35,6 +36,7 @@ class BreachDir(Internet):
                 
         if self.__JsonKeys[MinKey] == 50:
             #! show Error Windows "all the keys are invalid "
+            exit(0)
             pass 
         else:
             self.__ValidKey = MinKey
@@ -62,8 +64,7 @@ class BreachDir(Internet):
         self.__AutoJsResponse = loads(res.text) # ? internet.json.loads
         self.__UpdateKeyCounters()
         
-        
-        if 'message' in self.__AutoJsResponse:
+        if 'message' in str(self.__AutoJsResponse):
             self.__GetValidKey
             self.Search()
         else:

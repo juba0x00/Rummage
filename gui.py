@@ -5,7 +5,7 @@ from modules.leaksfinder import LeaksFinder
 from modules.search import Search
 from threading import Thread 
 # countries: Egypt, Cameroon, Algeria,  Austria,  Bahrain,  Belgium, Canada,  China, Cameroon, ShittyIsrael
-
+from multiprocessing import Process
 RootBG = '#202124'
 class Gui(tk.Tk):
 
@@ -20,6 +20,9 @@ class Gui(tk.Tk):
         self.__configure_result_output()
         self.__configure_switch_mode_btn()
         self.__LastStatus = ''
+        
+        # test = tk.StringVar(self)
+        # message = tk.Message(self)
     
         
     def __configure_root_window(self):
@@ -31,8 +34,7 @@ class Gui(tk.Tk):
         screenheight = self.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         self.geometry(alignstr)
-        # self.resizable(width=False, height=False)
-        self.bind('<Return>', self.start_search)
+        self.resizable(width=False, height=False)
 
 
     def __configure_search_btn(self):        
@@ -89,6 +91,7 @@ class Gui(tk.Tk):
     def __configure_email_entry(self):
         self.EmailLabel = tk.Label(text='Email: ', 
                                     font=self.font,
+                                    fg='white',
                                     background=RootBG)
         self.EmailLabel.place(x=10,y=87)
         self.EmailEntry = tk.Entry()
@@ -105,6 +108,7 @@ class Gui(tk.Tk):
     def __configure_phone_entry(self):
         self.PhoneLabel = tk.Label(text='Phone Number: ', 
                                     font=self.font,
+                                    fg='white',
                                     background=RootBG)
         self.PhoneLabel.place(x=10,y=147)
         self.PhoneEntry = tk.Entry()
@@ -120,6 +124,7 @@ class Gui(tk.Tk):
     def __configure_visa_entry(self):
         self.VisaLabel = tk.Label(text='Visa(first 5 number-last 5): *****-*****', 
                                     font=self.font,
+                                    fg='white',
                                     background=RootBG)
         self.VisaLabel.place(x=770,y=87)
         self.VisaEntry = tk.Entry()
@@ -136,6 +141,7 @@ class Gui(tk.Tk):
     def __configure_username_entry(self):
         self.UsernameLabel = tk.Label(text='Username: ', 
                                     font=self.font,
+                                    fg='white',
                                     background=RootBG)
         self.UsernameLabel.place(x=770,y=147)
         self.UsernameEntry = tk.Entry()
@@ -166,7 +172,7 @@ class Gui(tk.Tk):
                 self.StatusText.insert(tk.END, (LeaksFinder.GetStatus()))
                 self.__LastStatus = LeaksFinder.GetStatus()
 
-    def __configure_text_output(self):
+    def __configure_status_text(self):
         self.StatusText = tk.Text(
                                     self.StatusOutput,
                                     font=self.font,
@@ -195,11 +201,11 @@ class Gui(tk.Tk):
             anchor='n'
         )
         self.StatusOutput.place(x=10,y=270,width=573,height=453)
-        self.__configure_text_output()
+        self.__configure_status_text()
         
         self.CheckStatusThread = Thread(target=lambda: self.__check_status())
 
-
+    
 
 
     def __check_output(self):
@@ -207,6 +213,21 @@ class Gui(tk.Tk):
             self.output.set(LeaksFinder.GetResult())
             
             
+    def __configure_result_text(self):
+        self.ResultText = tk.Text(
+                                    self.ResultOutput,
+                                    font=self.font,
+                                    bg='#303134',
+                                    fg='white'
+                                )
+        self.ResultText.grid(row = 0, column = 1)
+        
+        self.ResultScroll = tk.Scrollbar(self.ResultOutput, command=self.ResultText.yview, background=RootBG, troughcolor=RootBG, activebackground='#e1e1e1')
+        self.ResultText.config(yscrollcommand=self.ResultScroll.set)
+        self.ResultScroll.grid(row=0, column=0, sticky=tk.NSEW)
+
+
+
     def __configure_result_output(self):
         self.output = tk.StringVar()
         self.ResultOutput=tk.Label()
@@ -220,12 +241,14 @@ class Gui(tk.Tk):
             
         )
         self.ResultOutput.place(x=590,y=270,width=576,height=452)
-
+        self.__configure_result_text()
 
 
 
 
     def start_search(self, *event):
+        # self.FinderProc = Process(target= lambda: self.Finder.Search(self.SingleSearchEntry.get()))
+        # self.FinderProc.start()
         self.FinderThread = Thread(target= lambda: self.Finder.Search(self.SingleSearchEntry.get()))
         self.FinderThread.start()
         self.CheckStatusThread.start()
@@ -265,8 +288,12 @@ class Gui(tk.Tk):
             
         elif self.AnotherMode.get() == 'Single Search':
             self.__switch_to_single_search()
-
-
+    
+    
+    def __del__(self):
+        # self.destroy()
+        del self.Finder
+        del self.FinderThread
 
 Gui = Gui()
 Gui.mainloop()
