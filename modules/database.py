@@ -9,6 +9,7 @@ class Database():
         pass
         
     def __DBConnect(self, DatabaseName):
+        print(DatabaseName)
         self.__conn = sqlite3.connect(f'{DatabaseName}.db')
         self.__cursor = self.__conn.cursor()
 
@@ -16,8 +17,10 @@ class Database():
     def Search(self, DatabaseName) :
         
         self.__DBConnect(DatabaseName) 
-
-        table = self.__cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()[0][0]
+        try:
+            table = self.__cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()[0][0]
+        except:
+            return False 
         column = self.__cursor.execute(f"PRAGMA table_info({table})").fetchall()[0][1] #!0col1|INTEGER|1||1
         key = LeaksFinder.GetSearchKey()
         

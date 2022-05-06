@@ -1,4 +1,7 @@
 from modules.internet import Internet
+RED = '\033[31m'
+RESET = '\033[0m'
+BOLD = '\033[1m'
 
 country = Internet.GetCountry()
 def CheckinputType(data):
@@ -50,3 +53,13 @@ def HandilingPhoneformat(code , StartRange, EndRange,Number):
     return (len(Number) >= StartRange and len(Number)<=EndRange ) and Number.isnumeric() and Number[:len(code)] == code
 
 
+def SanitizeInput(UserInput):
+    if ' ' in UserInput:
+        SearchKeys = UserInput.split(' ')
+        if len(SearchKeys) == 4:
+            return SearchKeys
+        else:
+            print(RED + BOLD + 'Input Validation Error\n Usage:\n single_search_key  or key1 key2 key3 key4' + RESET)
+            exit(0)
+            pass
+    return UserInput

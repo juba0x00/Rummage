@@ -150,7 +150,7 @@ class Gui(tk.Tk):
                                         font=self.font, 
                                         bg='#303134',
                                         fg='white', 
-                                        justify='center'                                        
+                                        justify='center'
                                     )
 
 

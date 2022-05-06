@@ -15,7 +15,6 @@ class BreachDir(Internet):
     def __init__(self):
         self.__JsonKeys = loads(str(open('APIkeys.json', 'r').read()))  # ? SurfaceNet.json.loads()
         self.__GetValidKey
-        print(f'vlid -> {self.__ValidKey}')
         self.__BreachDirHeaders = {
             "X-RapidAPI-Host": "breachdirectory.p.rapidapi.com",
             "X-RapidAPI-Key": self.__ValidKey  # ! Get your API key -> https://rapidapi.com/rohan-patra/api/breachdirectory

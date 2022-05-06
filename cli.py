@@ -47,7 +47,11 @@ print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 # TODO GUI
     # TODO Error win
+    # TODO cookie 
+    # TODO FULL Search 
+    # TODO threads (second search)
 
-# TODO Organize the code  @HAWASH
-
-
+# TODO Organize the code @HAWASH
+# TODO Full search 
+# TODO test
+# TODO UserName search

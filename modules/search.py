@@ -4,15 +4,14 @@ from modules.darknet import DarkNet
 from modules.scatter import ScatterSecrets
 from modules.database import Database
 from modules.breachdir import BreachDir
-from modules.validateinput import CheckinputType
+from modules.validateinput import CheckinputType, SanitizeInput
 from datetime import date 
 from threading import Thread
 import time
 
 class Search():
 
-            
-            
+
     def __EmailSearch(self):
         self.BreachDirFinder = BreachDir()
         self.ScatterFinder = ScatterSecrets()
@@ -48,6 +47,7 @@ class Search():
             
             
     def Search(self, SearchKey):
+        SearchKey = SanitizeInput(SearchKey)
         if type(SearchKey) == str:
             self.__SingleSearch(SearchKey)
             
@@ -57,29 +57,31 @@ class Search():
 
 
     def __SingleSearch(self, SearchKey):
-        
-        SearchType = CheckinputType(SearchKey)
+        if SearchKey != '':
+            SearchType = CheckinputType(SearchKey)
 
-        if Internet.GetCountry != 'Israel':
-            
-            LeaksFinder.SetAtrrs(SearchKey, SearchType)
+            if Internet.GetCountry != 'Israel':
+                
+                LeaksFinder.SetAtrrs(SearchKey, SearchType)
 
-            self.DatabaseFinder = Database()
-            
-            if self.DatabaseFinder.HistorySearch():
-                pass
-                # if not Database.TrustHistory():
-                #     self.__ExternalSearch(SearchType)
-                    
+                self.DatabaseFinder = Database()
+                if self.DatabaseFinder.HistorySearch():
+                    pass
+                    # if not Database.TrustHistory():
+                    #     self.__ExternalSearch(SearchType)
+                        
+                else:
+                    self.__ExternalSearch(SearchType)
             else:
-                self.__ExternalSearch(SearchType)
+                # F ISRAEL
+                pass
         else:
-            # F ISRAEL
-            pass
-        
+            pass 
+            
             
             
     def __ExternalSearch(self, SearchType):
+        print(SearchType)
         if SearchType == 'Email':
             self.__EmailSearch()
         elif SearchType == 'Username':
