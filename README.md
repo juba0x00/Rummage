@@ -173,23 +173,23 @@ you can use our service from 3 interfaces (CLI , GUI and Web UI)
     Example:
     
 
-![Untitled](Untitled.png)
+![Untitled](images/Untitled.png)
 
-![Untitled](Untitled%201.png)
+![Untitled](images/Untitled%201.png)
 
-![Untitled](Untitled%202.png)
+![Untitled](images/Untitled%202.png)
 
-![Untitled](Untitled%203.png)
+![Untitled](images/Untitled%203.png)
 
 ## 2nd UI (GUI)
 
 Example:
 
-![Untitled](Untitled%204.png)
+![Untitled](images/Untitled%204.png)
 
-![Untitled](Untitled%205.png)
+![Untitled](images/Untitled%205.png)
 
-![Untitled](Untitled%206.png)
+![Untitled](images/Untitled%206.png)
 
 ## 3rd UI (web UI)
 

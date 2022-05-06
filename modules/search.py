@@ -20,7 +20,7 @@ class Search():
         t1 = Thread(target=self.ScatterFinder.Search)
         t2 = Thread(target=self.BreachDirFinder.Search)  # ! handle 
         t3 = Thread(target=self.DarkFinder.Search)
-        threads = [t1, t3] 
+        threads = [t1,t2, t3] 
         for thread in threads:
             thread.start()
             
@@ -57,7 +57,6 @@ class Search():
 
 
     def __SingleSearch(self, SearchKey):
-        start = time.time()
         
         SearchType = CheckinputType(SearchKey)
 
@@ -68,14 +67,14 @@ class Search():
             self.DatabaseFinder = Database()
             
             if self.DatabaseFinder.HistorySearch():
-                if not Database.TrustHistory():
-                    start = time.time()
-                    self.__ExternalSearch(SearchType)
+                pass
+                # if not Database.TrustHistory():
+                #     self.__ExternalSearch(SearchType)
                     
             else:
                 self.__ExternalSearch(SearchType)
         else:
-            #ISRAEL
+            # F ISRAEL
             pass
         
             

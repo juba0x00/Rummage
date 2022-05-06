@@ -174,6 +174,7 @@ class Gui(tk.Tk):
                 self.__LastStatus = LeaksFinder.GetStatus()
                 self.StatusText.config(state='disabled')
                 
+                
 
     def __configure_status_text(self):
         self.StatusText = tk.Text(
