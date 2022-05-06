@@ -6,8 +6,6 @@ rummage is a python tool to search for your breaches on the internet and dark we
 
 and tell you if your information is breached 
 
-# Screenshots
-
 # Installation
 
 ```
