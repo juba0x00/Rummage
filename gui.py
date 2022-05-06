@@ -49,7 +49,7 @@ class Gui(tk.Tk):
                                 font=self.font,
                                 command=self.start_search
                             )
-        self.SearchBtn.place(x=520,y=110,width=130,height=30)
+        self.SearchBtn.place(x=520,y=110,width=160,height=30)
 
 
     def __configure_switch_mode_btn(self):
@@ -66,7 +66,7 @@ class Gui(tk.Tk):
                                 textvariable=self.AnotherMode,
                                 command=self.switch_mode
                             )
-        self.SwitchModeBtn.place(x=520,y=170,width=130,height=30)
+        self.SwitchModeBtn.place(x=520,y=170,width=160,height=30)
 
 
     def clicked(self, event):
