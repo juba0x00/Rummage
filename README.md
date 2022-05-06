@@ -37,7 +37,7 @@ Alternatively, each module can be installed independently as shown below.
 
 ---
 
-### Requests Module ([http://docs.python-requests.org/en/latest/](http://docs.python-requests.org/en/latest/))
+### [Requests Module](http://docs.python-requests.org/en/latest/)
 
 - Install for Windows:
 
@@ -57,7 +57,7 @@ Alternatively, each module can be installed independently as shown below.
 
 ## To Install tor
 
-- [https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi4ur_tqqr3AhVLi_0HHbvjBDQQFnoECBQQAw&url=https%3A%2F%2Ftb-manual.torproject.org%2Finstallation%2F&usg=AOvVaw3mYo5OI2enq-SRAwLNXrUw](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi4ur_tqqr3AhVLi_0HHbvjBDQQFnoECBQQAw&url=https%3A%2F%2Ftb-manual.torproject.org%2Finstallation%2F&usg=AOvVaw3mYo5OI2enq-SRAwLNXrUw)
+- [More Information](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi4ur_tqqr3AhVLi_0HHbvjBDQQFnoECBQQAw&url=https%3A%2F%2Ftb-manual.torproject.org%2Finstallation%2F&usg=AOvVaw3mYo5OI2enq-SRAwLNXrUw)
 
 ### For Windows
 
@@ -197,5 +197,5 @@ Example:
 
 # License
 
-Rummage is licensed under the GNU GPL v2.0 license. take a look at the [LICENSE](https://github.com/aboul3la/Sublist3r/blob/master/LICENSE)
+Rummage is licensed under the GNU GPL v2.0 license. take a look at the [LICENSE](https://github.com/Juba0x4355/Leaks-Finder/blob/main/LICENSE)
  for more information.
