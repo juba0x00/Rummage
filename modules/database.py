@@ -9,7 +9,6 @@ class Database():
         pass
         
     def __DBConnect(self, DatabaseName):
-        print(DatabaseName)
         self.__conn = sqlite3.connect(f'{DatabaseName}.db')
         self.__cursor = self.__conn.cursor()
 

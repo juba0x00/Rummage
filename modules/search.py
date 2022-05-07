@@ -81,7 +81,6 @@ class Search():
             
             
     def __ExternalSearch(self, SearchType):
-        print(SearchType)
         if SearchType == 'Email':
             self.__EmailSearch()
         elif SearchType == 'Username':

@@ -1,7 +1,7 @@
 from sys import platform 
 from os import getcwd
 from datetime import date
-from traceback import extract_stack
+
 
 
 RED = '\033[93m'

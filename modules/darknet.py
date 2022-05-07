@@ -33,9 +33,9 @@ class DarkNet(Internet):
     def __init__(self): 
         LeaksFinder.AddStatus('[-] Setting TOR Proxy [-]')
         self.session = session() # ? internet.requests.session()
-        self.session.proxies["http"] = "socks5h://localhost:9050"
-        self.session.proxies["https"] = "socks5h://localhost:9050"
-    #   socks.set_default_proxy(proxy_type, addr, port)
+        # self.session.proxies["http"] = "socks5h://localhost:9050"
+        # self.session.proxies["https"] = "socks5h://localhost:9050"
+        # socks.set_default_proxy(proxy_type, addr, port)
         socks.set_default_proxy(socks.SOCKS5, "localhost", 9050)
         socket.socket = socks.socksocket
         self.__CheckTorConnection()
@@ -125,7 +125,7 @@ class DarkNet(Internet):
 
 
     def __Get_EVENTVALIDATION(self):
-        LeaksFinder.AddStatus('[-] Event Validation [-]')        
+        LeaksFinder.AddStatus('[-] Event Validation [-]')
         # tag = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'})
         # self.__EVENTVALIDATION = tag.attrs['value']
         self.__EVENTVALIDATION = self.__soup.find('input', {'type': 'hidden', 'id': '__EVENTVALIDATION'}).attrs['value']
