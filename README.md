@@ -1,4 +1,25 @@
-# Rummage
+- [About](#about)
+- [Installation](#installation)
+- [Recommended Python versions](#recommended-python-versions)
+- [Dependencies](#dependencies)
+    - [Requests Module](#requests-module)
+  - [To Install tor](#to-install-tor)
+    - [For Windows](#for-windows)
+  - [For macOS](#for-macos)
+  - [For GNU/Linux](#for-gnulinux)
+    - [Graphical method](#graphical-method)
+    - [To Install datetime module](#to-install-datetime-module)
+    - [To install threading module](#to-install-threading-module)
+    - [To install bs4 module](#to-install-bs4-module)
+    - [To install sqlite3 module](#to-install-sqlite3-module)
+    - [To install sock module](#to-install-sock-module)
+    - [To install socket module](#to-install-socket-module)
+    - [To install json module](#to-install-json-module)
+- [Usage](#usage)
+  - [1st UI (CLI)](#1st-ui-cli)
+  - [2nd UI (GUI)](#2nd-ui-gui)
+  - [3rd UI (web UI)](#3rd-ui-web-ui)
+- [License](#license)
 
 # About
 
