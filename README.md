@@ -183,14 +183,6 @@ you can use our service from 3 interfaces (CLI , GUI and Web UI)
 
 ## 1st UI (CLI)
 
-- After you run the CLI file you will find a list of 2 choices (single search , full search )
-- press “1”  or ”2” to choose
-    - 1st choice is “single search” you write the item you want to search for breaches for and press enter then the result will appear if your data is breached or not
-    - 2nd choice  is “full search” you write the items you want to search for breaches for and press enter then the result will appear if your data is breached or not
-        - those items are (Email address , User name , visa card (1st 5 digits - 2nd 5 digits) ,Phone number)
-    
-    Example:
-    
 
 ![Untitled](images/Untitled.png)
 

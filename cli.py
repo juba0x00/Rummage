@@ -17,7 +17,9 @@ BOLD = '\033[1m'
 
 
 
-# Internet.check_tor_circuit()
+if not Internet.check_tor_circuit():
+    print("can not establish tor circuit")
+    exit(0)
 
 
 print( RED + BOLD + figlet_format('Rummage'))

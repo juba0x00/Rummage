@@ -13,7 +13,7 @@ from requests import get
 from sys import platform 
 from threading import Thread
 from time import sleep
-from os import system
+from os import system, popen 
 class Internet():
     
     @property
@@ -34,20 +34,18 @@ class Internet():
     def check_tor_circuit():
         if platform == 'linux' or platform == 'Linux' or platform == 'Darwin':
             Thread(target= lambda: system('tor > tor_status')).start()
-            sleep(1)
-            last = ''
-
-        while True:
-            content = open('tor_status', 'r').readlines()
             
-            if last != content[-1]:
-                print(content[-1].replace('\n', ''))
 
-            
-            last = content[-1]
-            if 'Bootstrapped 100%' in content[-1]:
-                break
-            sleep(1)
+            for line in popen('tor'):
+                if 'Could not bind' in line:
+                    system('sudo pkill tor')
+                    Internet.check_tor_circuit()
+                elif 'Bootstrapped' in line:
+                    percentage = line.split('%')[0].split('Bootstrapped ')[-1]
+                    print(f'Establishing Tor Circuit: {percentage}', end="\r")
+                    
+                    if percentage == '100':
+                        return True
         else:
             print(RED + BOLD + 'Please start TOR before running this program' + RESET)
         
