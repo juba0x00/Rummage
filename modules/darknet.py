@@ -181,10 +181,10 @@ class DarkNet(Internet):
         # ? 2 soup = BeautifulSoup(res.content, 'html.parser')
         # ? 3 self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})
         # ? 1+2 soup = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData) .content, 'html.parser')
-        res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData)
-        LeaksFinder.AddStatus('[-] Search Result received [-]')
-        soup = BeautifulSoup(res.content, 'html.parser')
-        self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})        
+        # res = self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData)
+        # LeaksFinder.AddStatus('[-] Search Result received [-]')
+        # soup = BeautifulSoup(res.content, 'html.parser')
+        # self.__LeaksResult = soup.find('div', {'class': 'ResultPanel'})        
         # ? 1+2+3 
         self.__LeaksResult = BeautifulSoup(self.session.post('http://leakfindrg5s2zcwwdmxlvz6oefz6hdwlkckh4eir4huqcpjsefxkead.onion/LeakedPass', data=InputData).content, 'html.parser').find('div', {'class': 'ResultPanel'})
         if self.__LeaksResult:

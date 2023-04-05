@@ -1,13 +1,19 @@
 import sqlite3
 from modules.leaksfinder import LeaksFinder
-
+from os import path
 from datetime import timedelta,datetime
 
 class Database():  
         
-    def _init_(self):
-        pass
-        
+    def __init__(self):
+        # create History DB if not exist
+        if not path.exists('databases/History.db'): 
+            self.__DBConnect('databases/History')
+            self.__cursor.execute(f"CREATE TABLE History(SearchKey VARCHAR(50) PRIMARY KEY, Result VARCHAR(10000), Sources VARCHAR(10000), LastSearch date, RiskLevel INT )")
+            self.__conn.commit()
+            self.__conn.close()
+
+
     def __DBConnect(self, DatabaseName):
         self.__conn = sqlite3.connect(f'{DatabaseName}.db')
         self.__cursor = self.__conn.cursor()

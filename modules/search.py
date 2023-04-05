@@ -65,6 +65,7 @@ class Search():
                 LeaksFinder.SetAtrrs(SearchKey, SearchType)
 
                 self.DatabaseFinder = Database()
+                print('here')
                 if self.DatabaseFinder.HistorySearch():
                     pass
                     # if not Database.TrustHistory():
