@@ -13,5 +13,5 @@ setuptools==65.5.1
 socks==0
 SocksiPy-branch==1.1
 soupsieve==2.4
-urllib3==1.26.15
+urllib3==1.26.18
 yarg==0.1.9
