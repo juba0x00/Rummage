@@ -8,7 +8,7 @@ pip==23.0.1
 pipreqs==0.4.11
 pyfiglet==0.8.post1
 PySocks==1.7.1
-requests==2.28.2
+requests==2.31.0
 setuptools==65.5.1
 socks==0
 SocksiPy-branch==1.1
